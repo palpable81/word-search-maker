@@ -1,0 +1,10 @@
+.grid-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.grid-row div {
+  height: 2rem;
+  width: 2rem;
+  font-size: 1.5rem;
+}

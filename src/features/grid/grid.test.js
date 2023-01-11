@@ -46,7 +46,7 @@ describe('grid', () => {
 
   test('places a bunch of words', () => {
     const grid = new Grid();
-    const wordlist = ['ambulance','submarine','excavator','airplane','bicycle','rocket','truck','ship','boat','car','bus'];
+    const wordlist = ['skateboard','ambulance','submarine','excavator','airplane','bicycle','rocket','truck','ship','boat','car','bus'];
 
     while(wordlist.length > 0) {
       const word = wordlist.shift();

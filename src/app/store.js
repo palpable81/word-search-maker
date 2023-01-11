@@ -1,14 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import filterReducer from '../features/filter/filterSlice';
-// import postsReducer from '../features/posts/postsSlice';
-// import subredditsReducer from '../features/subreddits/subredditsSlice';
-// import commentsReducer from '../features/comments/commentsSlice';
+import gridReducer from '../features/grid/gridSlice';
+import wordbankReducer from '../features/wordbank/wordbankSlice';
 
 export default configureStore({
   reducer: {
-    // filter: filterReducer,
-    // posts: postsReducer,
-    // subreddits: subredditsReducer,
-    // comments: commentsReducer
+    grid: gridReducer,
+    wordbank: wordbankReducer,
   },
 });
