@@ -5,7 +5,7 @@ export default function GridRow(props) {
 
   return (
     <div className='grid-row'>
-      {gridRow.map((char, i) => <div key={i}>{char || 'X'}</div>)}
+      {gridRow.map((char, i) => <div className={char ? 'filled' : 'empty'} key={i}>{char || '•'}</div>)}
     </div>
   );
 }

@@ -1,31 +1,23 @@
-import { setWord, selectWordbank } from '../../features/wordbank/wordbankSlice';
-import { placeWord } from '../../features/grid/gridSlice';
-import { useDispatch, useSelector } from "react-redux";
+import { setWord } from '../../features/wordbank/wordbankSlice';
+import { useDispatch } from "react-redux";
 
 export default function Word(props) {
   const dispatch = useDispatch();
   const id = props.id;
-  const word = useSelector(selectWordbank)[id];
+  const word = props.wordEntry.word;
 
   const handleChange = ({target}) => {
-    console.log('Dispatching...');
-    dispatch(setWord({
-      word: target.value,
-      id: id
-    }));
-  }
+    const allowedChars = target.value.replace(/[^a-zA-Z ]/gi, '').toUpperCase().trimStart();
 
-  const handleOnClick = () => {
-    console.log('Placing word...');
-    dispatch(placeWord(word));
+    dispatch(setWord({
+      id: id,
+      word: allowedChars,
+    }));
   }
 
   return (
     <div className='word'>
-      <input placeholder="Enter Word..." onChange={handleChange}/>
-      <button onClick={handleOnClick} >
-        Add Word
-      </button>
+      <input type="text" value={word} placeholder="Enter Word..." onChange={handleChange} />
     </div>
   );
 }

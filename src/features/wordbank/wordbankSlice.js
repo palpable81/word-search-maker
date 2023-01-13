@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  wordbank: new Array(10).fill(''),
+  wordbank: new Array(10).fill({
+    word: '', 
+    triedToPlace: false, 
+    placedSuccessfully: null}),
 };
 
 const wordbankSlice = createSlice({
@@ -9,12 +12,18 @@ const wordbankSlice = createSlice({
   initialState: initialState,
   reducers: {
     setWord: (state, action) => {
-      state.wordbank[action.payload.id] = action.payload.word;
+      state.wordbank[action.payload.id].word = action.payload.word;
+      state.wordbank[action.payload.id].triedToPlace = false;
+      state.wordbank[action.payload.id].placedSuccessfully = null;
     },
+    setWordStatus: (state, action) => {
+      state.wordbank[action.payload.id].triedToPlace = action.payload.triedToPlace;
+      state.wordbank[action.payload.id].placedSuccessfully = action.payload.placedSuccessfully;
+    }
   }
 });
 
-export const { setWord } = wordbankSlice.actions;
+export const { setWord, setWordStatus } = wordbankSlice.actions;
 
 export const selectWordbank = (state) => state.wordbank.wordbank;
 

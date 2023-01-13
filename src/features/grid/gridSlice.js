@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { VERTICAL, findPosition } from './gridUtil';
 
+const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
 const initialState = {
   grid: Array(10).fill(null).map(()=>Array(10).fill(null)),
   words: [],
@@ -27,6 +29,16 @@ const gridSlice = createSlice({
       state.words = state.words.concat(word);
       state.lastDirectionPlaced = direction;
     },
+    fillRemainingSquares: (state) => {
+      const grid = state.grid;
+      for(let row = 0; row < grid.length; row++) {
+        for(let column = 0; column < grid[0].length; column++) {
+          if(grid[row][column] === null) {
+            grid[row][column] = randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+          }
+        }
+      }
+    },
     clearGrid: (state) => {
       state.grid = Array(10).fill(null).map(()=>Array(10).fill(null));
       state.words = [];
@@ -34,7 +46,7 @@ const gridSlice = createSlice({
   }
 });
 
-export const { setGrid, addWord, clearGrid } = gridSlice.actions;
+export const { setGrid, addWord, fillRemainingSquares, clearGrid } = gridSlice.actions;
 export const selectGrid = (state) => state.grid.grid;
 
 // Redux Thunk to place word
@@ -44,7 +56,9 @@ export const placeWord = (word) =>  (dispatch, getState) => {
 
   if(position) {
     dispatch(addWord(position));
+    return true;
   }
+  return false;
 };
 
 export default gridSlice.reducer;
