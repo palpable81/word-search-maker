@@ -5,7 +5,13 @@ export default function GridRow(props) {
 
   return (
     <div className='grid-row'>
-      {gridRow.map((char, i) => <div className={char ? 'filled' : 'empty'} key={i}>{char || '•'}</div>)}
+        {gridRow.map((char, i) => (
+          <div className='grid-box'>
+            <div className={char ? 'grid-letter filled' : 'grid-letter empty'} key={i}>
+              {char || ''}
+            </div>
+          </div>
+        ))}
     </div>
   );
 }

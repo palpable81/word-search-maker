@@ -1,19 +1,37 @@
+.grid {
+  background-color: #FFFFFF;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.grid-outline {
+  border: 2px solid #000000;
+}
+
 .grid-row {
   display: flex;
   flex-direction: row;
 }
 
-.grid-row div {
-  height: 2rem;
-  width: 2rem;
+.grid-row:not(:last-child) {
+  border-bottom: 1px dashed #CCCCCC;
+}
+
+.grid-box:not(:last-child) {
+  border-right: 1px dashed #CCCCCC;
+}
+
+.grid-letter {
+  height: 3rem;
+  width: 3rem;
   text-align: center;
   vertical-align: middle;
-  line-height: 2rem; 
-  font-size: 1.5rem;
+  line-height: 3rem; 
+  font-size: 2rem;
   /* transition: font-size 0.5s ease; */
 }
 
-.grid-row div.filled {
+.grid-letter.filled {
   animation: 2s anim-popoutin ease 1;
 }
 

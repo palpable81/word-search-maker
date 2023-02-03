@@ -8,7 +8,9 @@ export default function Grid() {
 
   return (
     <div className='grid'>
-      {grid.map((gridRow, i) => <GridRow gridRow={gridRow} key={i}/>)}
+      <div className='grid-outline'>
+        {grid.map((gridRow, i) => <GridRow gridRow={gridRow} key={i}/>)}
+      </div>
     </div>
   );
 }
