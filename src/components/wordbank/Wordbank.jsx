@@ -53,7 +53,7 @@ export default function Wordbank() {
     <div className='wordbank'>
       {wordbank.map((wordEntry, i) => <Word wordEntry={wordEntry} key={i} id={i}/>)}
       <button className='generate-button' onClick={handleOnClick} >
-        Generate Word Search
+        GENERATE WORD SEARCH
       </button>
     </div>
 );

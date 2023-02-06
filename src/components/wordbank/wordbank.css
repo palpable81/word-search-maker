@@ -21,8 +21,8 @@
 .generate-button{
   font-family: 'Helvetica', 'Arial', sans-serif;
   display: inline-block;
-  font-size: 1em;
-  padding: 1em 2em;
+  font-size: 1.25em;
+  padding: 0.5em 1em;
   -webkit-appearance: none;
   appearance: none;
   background-color: var(--button-bg);
@@ -34,22 +34,11 @@
   position: relative;
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s, border-color ease-in 0.3s;
   box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5);
+  margin-top: 1rem;
 }
   
 .generate-button:hover {
   border-color: rgba(255, 255, 255, 1);
-}
-  
-.generate-button:before, .generate-button:after{
-  position: absolute;
-  content: '';
-  display: block;
-  width: 140%;
-  height: 100%;
-  left: -20%;
-  z-index: -1000;
-  transition: all ease-in-out 0.5s;
-  background-repeat: no-repeat;
 }
 
 .generate-button:active{
