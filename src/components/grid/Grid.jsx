@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
-import { selectGrid } from '../../features/grid/gridSlice';
+import { selectGrid, selectFinished } from '../../features/grid/gridSlice';
 
 import GridRow from './GridRow';
 
 export default function Grid() {
   const grid = useSelector(selectGrid);
+  const finished = useSelector(selectFinished);
 
   const handleOnClick = () => {
     
@@ -17,8 +18,8 @@ export default function Grid() {
           {grid.map((gridRow, i) => <GridRow gridRow={gridRow} key={i}/>)}
         </div>
       </div>
-      <button className='print-button' onClick={handleOnClick} >
-        PRINT
+      <button className={finished ? 'print-button' : 'print-button hidden'} onClick={handleOnClick}>
+        PRINT THIS!
       </button>
     </div>
   );

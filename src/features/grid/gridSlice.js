@@ -6,7 +6,8 @@ const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const initialState = {
   grid: Array(10).fill(null).map(()=>Array(10).fill(null)),
   words: [],
-  lastDirectionPlaced: null
+  lastDirectionPlaced: null,
+  finished: false
 };
 
 const gridSlice = createSlice({
@@ -38,16 +39,19 @@ const gridSlice = createSlice({
           }
         }
       }
+      state.finished = true;
     },
     clearGrid: (state) => {
       state.grid = Array(10).fill(null).map(()=>Array(10).fill(null));
       state.words = [];
+      state.finished = false;
     },
   }
 });
 
 export const { setGrid, addWord, fillRemainingSquares, clearGrid } = gridSlice.actions;
 export const selectGrid = (state) => state.grid.grid;
+export const selectFinished = (state) => state.grid.finished;
 
 // Redux Thunk to place word
 export const placeWord = (word) =>  (dispatch, getState) => {

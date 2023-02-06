@@ -1,5 +1,4 @@
 import './wordbank.css';
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setWordStatus, selectWordbank } from '../../features/wordbank/wordbankSlice';
 import { placeWord, fillRemainingSquares, clearGrid } from '../../features/grid/gridSlice';
