@@ -82,6 +82,10 @@
   box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5);
   margin-top: 1rem;
 }
+
+.print-button.hidden {
+  display: none;
+}
   
 .print-button:hover {
   border-color: rgba(255, 255, 255, 1);
