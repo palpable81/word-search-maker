@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { VERTICAL, findPosition } from './gridUtil';
 
+export const ROWS = 10;
+export const COLS = 10;
 const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const initialState = {
-  grid: Array(10).fill(null).map(()=>Array(10).fill(null)),
+  grid: Array(ROWS).fill(null).map(()=>Array(COLS).fill(null)),
   words: [],
   lastDirectionPlaced: null,
   finished: false
@@ -42,7 +44,7 @@ const gridSlice = createSlice({
       state.finished = true;
     },
     clearGrid: (state) => {
-      state.grid = Array(10).fill(null).map(()=>Array(10).fill(null));
+      state.grid = Array(ROWS).fill(null).map(()=>Array(COLS).fill(null));
       state.words = [];
       state.finished = false;
     },

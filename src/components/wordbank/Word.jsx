@@ -1,4 +1,5 @@
 import { setWord } from '../../features/wordbank/wordbankSlice';
+import { ROWS, COLS } from '../../features/grid/gridSlice';
 import { useDispatch } from "react-redux";
 
 export default function Word(props) {
@@ -8,10 +9,21 @@ export default function Word(props) {
 
   const handleChange = ({target}) => {
     const allowedChars = target.value.replace(/[^a-zA-Z ]/gi, '').toUpperCase().trimStart();
+    let newWord = "";
+    let strLengthWithoutSpaces = 0;
+    for(let i=0; i<allowedChars.length; i++) {
+      newWord += allowedChars[i];
+      if(allowedChars[i] !== ' ') {
+        strLengthWithoutSpaces++;
+      }
+      if(strLengthWithoutSpaces >= ROWS) {
+        break;
+      }
+    }
 
     dispatch(setWord({
       id: id,
-      word: allowedChars,
+      word: newWord,
     }));
   }
 
