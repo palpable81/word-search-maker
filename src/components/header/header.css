@@ -8,3 +8,21 @@
 .instructions {
   color: #FFFFFF;
 }
+
+@media print 
+{
+   @page
+   {
+    size: auto;
+    size: landscape;
+  }
+
+  .instructions {
+    display: none;
+  }
+
+  header {
+    margin-bottom: 2rem;
+  }
+
+}

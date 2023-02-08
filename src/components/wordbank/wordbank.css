@@ -46,3 +46,16 @@
   background-color: #D9006D;
   box-shadow: 0 2px 25px rgba(255, 0, 130, 0.7);
 }
+
+@media print 
+{
+   @page
+   {
+    size: auto;
+    size: landscape;
+  }
+
+  .generate-button, .word-input.empty {
+    display:none;
+  }
+}

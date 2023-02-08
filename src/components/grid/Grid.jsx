@@ -8,7 +8,7 @@ export default function Grid() {
   const finished = useSelector(selectFinished);
 
   const handleOnClick = () => {
-    
+    window.print();
   };
 
   return (

@@ -54,7 +54,7 @@ export default function Word(props) {
 
   return (
     <div className='word'>
-      <input type="text" id={'word'+props.id} value={word} placeholder="Enter Word..." onChange={handleChange} onKeyDown={handleKeyDown}/>
+      <input type="text" id={'word'+props.id} className={word ? 'word-input' : 'word-input empty'} value={word} placeholder="Enter Word..." onChange={handleChange} onKeyDown={handleKeyDown}/>
     </div>
   );
 }
