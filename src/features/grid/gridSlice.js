@@ -9,16 +9,14 @@ const initialState = {
   grid: Array(ROWS).fill(null).map(()=>Array(COLS).fill(null)),
   words: [],
   lastDirectionPlaced: null,
-  finished: false
+  finished: false,
+  isGenerating: false
 };
 
 const gridSlice = createSlice({
   name: 'grid',
   initialState: initialState,
   reducers: {
-    setGrid: (state, action) => {
-      state.grid = action.payload;
-    },
     addWord: (state, action) => {
       const {word, row, column, direction} = action.payload;
       for(let i = 0; i < word.length; i++) {
@@ -48,12 +46,16 @@ const gridSlice = createSlice({
       state.words = [];
       state.finished = false;
     },
+    setIsGenerating: (state, action) => {
+      state.isGenerating = action.payload;
+    }
   }
 });
 
-export const { setGrid, addWord, fillRemainingSquares, clearGrid } = gridSlice.actions;
+export const { addWord, fillRemainingSquares, clearGrid, setIsGenerating } = gridSlice.actions;
 export const selectGrid = (state) => state.grid.grid;
 export const selectFinished = (state) => state.grid.finished;
+export const selectIsGenerating = (state) => state.grid.isGenerating;
 
 // Redux Thunk to place word
 export const placeWord = (word) =>  (dispatch, getState) => {
