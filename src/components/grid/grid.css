@@ -1,7 +1,19 @@
+.grid-section {
+  display: inline-block;
+}
+
 .grid {
+  display: flex;
   background-color: #FFFFFF;
   border-radius: 1rem;
   padding: 1rem;
+  margin-right: 1rem;
+}
+
+@media only screen and (max-width: 700px) {
+  .grid {
+    margin-right: 0;
+  }
 }
 
 .grid-outline {
@@ -28,7 +40,15 @@
   vertical-align: middle;
   line-height: 2.75rem; 
   font-size: 1.75rem;
-  /* transition: font-size 0.5s ease; */
+}
+
+@media only screen and (max-width: 900px) {
+  .grid-letter {
+    height: 2rem;
+    width: 2rem;
+    line-height: 2rem; 
+    font-size: 1.25rem;
+  }
 }
 
 .grid-letter.filled {
@@ -80,7 +100,7 @@
   position: relative;
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s, border-color ease-in 0.3s;
   box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5);
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
 
 .print-button.hidden {

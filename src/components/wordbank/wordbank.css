@@ -1,5 +1,5 @@
 .wordbank {
-  padding: 0 2rem;
+  padding: 0 2rem 0 0;
 }
 
 .word input {
@@ -11,6 +11,24 @@
   color: #010c3f;
   text-align: center;
   font-size: 1.25rem;
+}
+
+@media only screen and (max-width: 700px) {
+  .wordbank {
+    padding: 0;
+  }
+
+  .word input {
+    padding: 0.5rem 0;
+    font-size: 1.25rem;
+  }
+}
+
+@media only screen and (max-width: 900px) and (min-width: 700px) {
+  .word input {
+    padding: 0.275rem 0;
+    font-size: 1rem;
+  }
 }
 
 #word9 {
@@ -38,7 +56,7 @@
   position: relative;
   transition: transform ease-in 0.1s, box-shadow ease-in 0.25s, border-color ease-in 0.3s;
   box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5);
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
   
 .generate-button:hover {
