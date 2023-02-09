@@ -1,12 +1,13 @@
 import './wordbank.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { setWordStatus, selectWordbank } from '../../features/wordbank/wordbankSlice';
-import { placeWord, fillRemainingSquares, clearGrid } from '../../features/grid/gridSlice';
+import { placeWord, fillRemainingSquares, clearGrid, selectFinished } from '../../features/grid/gridSlice';
 
 import Word from './Word';
 
 export default function Wordbank() {
   const wordbank = useSelector(selectWordbank);
+  const finished = useSelector(selectFinished);
   const dispatch = useDispatch();
 
   const handleOnClick = () => {
@@ -52,7 +53,7 @@ export default function Wordbank() {
     <div className='wordbank'>
       {wordbank.map((wordEntry, i) => <Word wordEntry={wordEntry} key={i} id={i}/>)}
       <button id='generate-word-search' className='generate-button' onClick={handleOnClick} >
-        GENERATE WORD SEARCH
+        {finished ? 'GENERATE NEW SEARCH' : 'GENERATE WORD SEARCH'}
       </button>
     </div>
 );
