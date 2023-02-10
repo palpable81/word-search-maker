@@ -1,7 +1,3 @@
-.wordbank {
-  grid-column-start: 1;
-}
-
 .word input {
   width: 13rem;
   padding: 0.5rem 0;
@@ -31,13 +27,7 @@
 
 @media print 
 {
-   @page
-   {
-    size: auto;
-    size: landscape;
-  }
-
-  .button, .word-input.empty {
+  .word-input.empty {
     display:none;
   }
 }
