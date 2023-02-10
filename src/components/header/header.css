@@ -7,16 +7,11 @@
 
 .instructions {
   color: #FFFFFF;
+  padding: 0 0.3rem;
 }
 
 @media print 
 {
-   @page
-   {
-    size: auto;
-    size: landscape;
-  }
-
   .instructions {
     display: none;
   }
@@ -24,5 +19,4 @@
   header {
     margin-bottom: 2rem;
   }
-
 }

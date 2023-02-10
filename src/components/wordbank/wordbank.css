@@ -25,6 +25,10 @@
   grid-row-start: 2;
 }
 
+#generate-button {
+  min-width: 20rem;
+}
+
 @media print 
 {
   .word-input.empty {
