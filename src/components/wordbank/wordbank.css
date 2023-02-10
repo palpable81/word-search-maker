@@ -1,5 +1,5 @@
 .wordbank {
-  padding: 0 2rem 0 0;
+  grid-column-start: 1;
 }
 
 .word input {
@@ -13,26 +13,20 @@
   font-size: 1.25rem;
 }
 
-@media only screen and (max-width: 700px) {
-  .wordbank {
-    padding: 0;
-  }
-
-  .word input {
-    padding: 0.5rem 0;
-    font-size: 1.25rem;
-  }
+.word:last-child input {
+  margin-bottom: 0;
 }
 
-@media only screen and (max-width: 900px) and (min-width: 700px) {
+@media only screen and (max-width: 900px) {
   .word input {
     padding: 0.275rem 0;
     font-size: 1rem;
   }
 }
 
-#word9 {
-  margin-bottom: 0;
+.generate-button-container {
+  grid-column-start: 1;
+  grid-row-start: 2;
 }
 
 @media print 
@@ -43,7 +37,7 @@
     size: landscape;
   }
 
-  .generate-button, .word-input.empty {
+  .button, .word-input.empty {
     display:none;
   }
 }

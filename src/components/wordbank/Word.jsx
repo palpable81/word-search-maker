@@ -27,7 +27,7 @@ export default function Word(props) {
       }
     }
     else if (event.key === 'Enter') {
-      const generateButton = document.getElementById('generate-word-search');
+      const generateButton = document.getElementById('generate-button');
       generateButton.click();
     }
   }

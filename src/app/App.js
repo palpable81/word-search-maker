@@ -1,8 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import Header from '../components/header/Header';
-import Grid from '../components/grid/Grid';
 import Wordbank from '../components/wordbank/Wordbank';
+import GenerateButton from '../components/wordbank/GenerateButton';
+import Grid from '../components/grid/Grid';
+import PrintButton from '../components/grid/PrintButton';
+
 
 function App() {
   return (
@@ -10,7 +13,9 @@ function App() {
       <Header/>
       <main>
         <Wordbank/>
+        <GenerateButton/>
         <Grid/>
+        <PrintButton/>
       </main>
     </div>
   );

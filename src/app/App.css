@@ -48,7 +48,8 @@ body > #root > div {
 }
 
 main {
-  display: flex;
+  display: grid;
+  grid-column-gap: 2rem;
   justify-content: center;
   align-items: start;
   margin-top: 1rem;
