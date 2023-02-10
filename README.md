@@ -1,7 +1,7 @@
 <!-- ABOUT THE PROJECT -->
 ## Word Search Maker
 
-[![Product Name Screen Shot][product-screenshot]](https://timely-taiyaki-2805b5.netlify.app/)
+[![Product Name Screen Shot][product-screenshot]](https://papaya-crostata-1f5776.netlify.app/)
 
 Word Search Maker is an easy-to-use React app that will generate a printable word search using words you enter.
 
