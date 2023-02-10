@@ -18,7 +18,7 @@ export default function Grid() {
           {grid.map((gridRow, i) => <GridRow gridRow={gridRow} key={i}/>)}
         </div>
       </div>
-      <button className={finished ? 'print-button' : 'print-button hidden'} onClick={handleOnClick}>
+      <button className={finished ? 'button' : 'button hidden'} onClick={handleOnClick}>
         PRINT THIS!
       </button>
     </div>
