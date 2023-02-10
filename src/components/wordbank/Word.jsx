@@ -1,5 +1,5 @@
 import { setWord } from '../../features/wordbank/wordbankSlice';
-import { ROWS, COLS } from '../../features/grid/gridSlice';
+import { ROWS } from '../../features/grid/gridSlice';
 import { useDispatch } from "react-redux";
 
 export default function Word(props) {
