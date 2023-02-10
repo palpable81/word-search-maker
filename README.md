@@ -8,6 +8,7 @@ Word Search Maker is an easy-to-use React app that will generate a printable wor
 * Enter up to ten words of your choice
 * Quickly generate randomly-created word searches
 * Print word searches in a printer-friendly format
+* Sizes responsively for use on mobile, tablet, or laptop
 
 ### Built With
 
