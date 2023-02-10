@@ -54,7 +54,7 @@ export default function GenerateButton() {
 
   return (
     <div className='generate-button-container'>
-      <button id='generate-button' className='button' onClick={handleOnClick} >
+      <button id='generate-button' className='button' onClick={handleOnClick} disabled={isGenerating}>
         {finished ? 'GENERATE NEW SEARCH' : 'GENERATE WORD SEARCH'}
       </button>
     </div>

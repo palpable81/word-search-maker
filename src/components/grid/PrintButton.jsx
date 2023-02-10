@@ -10,7 +10,7 @@ export default function PrintButton() {
 
   return (
     <div>
-      <button className={finished ? 'button' : 'button hidden'} onClick={handleOnClick}>
+      <button className='button' disabled={!finished} onClick={handleOnClick}>
         PRINT THIS!
       </button>
     </div>

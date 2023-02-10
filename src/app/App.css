@@ -24,17 +24,17 @@
   margin: 1rem 0;
 }
 
-.button.hidden {
-  display: none;
+.button:disabled {
+  opacity: 0.5;
 }
   
 .button:hover {
   border-color: rgba(255, 255, 255, 1);
 }
 
-.button:active{
+.button:enabled:active{
   transform: scale(0.9);
-  background-color: #D9006D;
+  background-color: var(--button-bg-active);
   box-shadow: 0 2px 25px rgba(255, 0, 130, 0.7);
 }
 
