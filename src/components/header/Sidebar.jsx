@@ -34,6 +34,14 @@ export default function Sidebar() {
             <input id="displayAnimation" type="checkbox" class="switch" checked={displayAnimation} onClick={handleGenerationAnimationClick}/>
             <label for="displayAnimation">Display Animation</label>
           </li>
+          {/* <li>
+            <input id="r1" type="radio" name="radio" value="1"/>
+            <label for="r1">Radio</label>
+          </li>
+          <li>
+            <input id="r2" type="radio" name="radio" value="2" checked/>
+            <label for="r2">Radio</label>
+          </li> */}
         </ul>
       </div>
     </aside>

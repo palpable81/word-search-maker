@@ -7,8 +7,8 @@
   --sidebar-border-color: #858895;
 }
 
-.button{
-  font-family: 'Helvetica', 'Arial', sans-serif;
+.button {
+  font-family: 'Noto Sans', sans-serif;
   display: inline-block;
   font-size: 1.25em;
   padding: 0.5em 1em;
@@ -47,6 +47,7 @@ body > #root > div {
 .App {
   text-align: center;
   background-image: linear-gradient(to top , #b37ebe, #574f77);
+  font-family: 'Noto Sans', sans-serif;
 }
 
 main {
