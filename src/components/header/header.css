@@ -3,6 +3,13 @@
   font-size: 3rem;
   color: #FFFFFF;
   text-shadow: 2px 2px #000000;
+  padding: 0 3rem;
+}
+
+@media only screen and (max-width: 400px) {  
+  .title {
+    font-size: 2rem;
+  }
 }
 
 .instructions {

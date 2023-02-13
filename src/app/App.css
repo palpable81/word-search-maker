@@ -3,6 +3,8 @@
   --button-bg: #ff0081;
   --button-bg-active: #D9006D;
   --button-text-color: #ffffff;
+  --sidebar-bg-color: #dfdfdf;
+  --sidebar-text-color: #858895;
 }
 
 .button{
