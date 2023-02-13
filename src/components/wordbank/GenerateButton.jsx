@@ -15,10 +15,13 @@ export default function GenerateButton() {
   let fillDelay = displayAnimation ? 600 : 0;
 
   const handleOnClick = () => {
-    if(!isGenerating) {
+    const enteredWords = wordbank.filter(wordEntry => wordEntry.word);
+
+    if(!isGenerating && enteredWords.length > 0) {
       dispatch(setIsGenerating(true));
-      const sortedWords = wordbank.filter(wordEntry => wordEntry.word
-        ).map((wordEntry, i) => {
+      dispatch(clearGrid());
+
+      const sortedWords = enteredWords.map((wordEntry, i) => {
           return {
             id: i,
             word: wordEntry.word
@@ -26,8 +29,6 @@ export default function GenerateButton() {
         }).sort((a, b) => {
           return b.word.length - a.word.length;
         });
-        
-      dispatch(clearGrid());
   
       // Returns a Promise that resolves after "ms" Milliseconds
       const timer = ms => new Promise(res => setTimeout(res, ms))
@@ -37,7 +38,7 @@ export default function GenerateButton() {
           const wordEntry = sortedWords[i];
   
           await timer(wordDelay);
-          const result = dispatch(placeWord(wordEntry.word.replace(/ /g,'')));
+          const result = dispatch(placeWord(wordEntry.word.replace(/ /g,''))); //remove spaces when placing
           dispatch(setWordStatus({
             id: wordEntry.id,
             word: wordEntry.word,
