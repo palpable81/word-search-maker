@@ -2,12 +2,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setWordStatus, selectWordbank } from '../../features/wordbank/wordbankSlice';
 import { placeWord, fillRemainingSquares, clearGrid, setIsGenerating,
          selectFinished, selectIsGenerating } from '../../features/grid/gridSlice';
+import { selectDisplayAnimation } from '../../features/settings/settingsSlice';
 
 export default function GenerateButton() {
   const wordbank = useSelector(selectWordbank);
   const finished = useSelector(selectFinished);
   const isGenerating = useSelector(selectIsGenerating);
+  const displayAnimation = useSelector(selectDisplayAnimation);
   const dispatch = useDispatch();
+
+  let wordDelay = displayAnimation ? 300 : 0;
+  let fillDelay = displayAnimation ? 600 : 0;
 
   const handleOnClick = () => {
     if(!isGenerating) {
@@ -31,7 +36,7 @@ export default function GenerateButton() {
         for(let i=0; i < sortedWords.length; i++) {
           const wordEntry = sortedWords[i];
   
-          await timer(300);
+          await timer(wordDelay);
           const result = dispatch(placeWord(wordEntry.word.replace(/ /g,'')));
           dispatch(setWordStatus({
             id: wordEntry.id,
@@ -41,7 +46,7 @@ export default function GenerateButton() {
           }));
   
           if(i === sortedWords.length - 1) {
-            await timer(600);
+            await timer(fillDelay);
             dispatch(fillRemainingSquares());
             dispatch(setIsGenerating(false));
           }

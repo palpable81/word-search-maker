@@ -1,14 +1,23 @@
 import './sidebar.css';
 import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleAnimation, selectDisplayAnimation } from '../../features/settings/settingsSlice';
 
 export default function Sidebar() {
+  const displayAnimation = useSelector(selectDisplayAnimation);
+  const dispatch = useDispatch();
 
   const handleOutsideClick = e => {
-    const sidebar = document.querySelector('#sidebar');
-    if (e.target.id !== 'sidebar' && e.target.className !== 'sidebar_toggler') {
+    if (e.target.id !== 'sidebar' && e.target.className !== 'sidebar_toggler' &&
+        e.target.className !== 'switch') {
+      const sidebar = document.querySelector('#sidebar');
       sidebar.classList.remove('show');
     }
   };
+
+  const handleGenerationAnimationClick = () => {
+    dispatch(toggleAnimation());
+  }
 
   useEffect(() => {
     window.addEventListener("click", handleOutsideClick);
@@ -19,30 +28,13 @@ export default function Sidebar() {
 
   return (
     <aside id="sidebar">
-      <div className="sidebar_content sidebar_head">
-          <h1>Sidebar</h1>
-      </div>
-
-      <div className="sidebar_content sidebar_body">
-          <nav className="side_navlinks">
-              <ul>
-                  <li><a href="#">Home</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Services</a></li>
-                  <li><a href="#">Portfolio</a></li>
-                  <li><a href="#">Contact</a></li>
-              </ul>
-          </nav>
-      </div>
-
-      <div className="sidebar_content sidebar_foot">
-          <p>
-              &#169;
-              <script>
-                  document.write(new Date().getFullYear());
-              </script>
-              &#160;JavaScript Sidebar.
-          </p>
+      <div class="sidebar_content sidebar_body">
+        <ul>
+          <li>
+            <input id="displayAnimation" type="checkbox" class="switch" checked={displayAnimation} onClick={handleGenerationAnimationClick}/>
+            <label for="displayAnimation">Display Animation</label>
+          </li>
+        </ul>
       </div>
     </aside>
   );
