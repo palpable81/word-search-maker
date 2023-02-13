@@ -7,24 +7,24 @@ export default function Sidebar() {
   const displayAnimation = useSelector(selectDisplayAnimation);
   const dispatch = useDispatch();
 
-  const handleOutsideClick = e => {
-    if (e.target.id !== 'sidebar' && e.target.className !== 'sidebar_toggler' &&
-        e.target.className !== 'switch') {
-      const sidebar = document.querySelector('#sidebar');
-      sidebar.classList.remove('show');
-    }
-  };
-
   const handleGenerationAnimationClick = () => {
     dispatch(toggleAnimation());
   }
 
   useEffect(() => {
+    const handleOutsideClick = e => {
+      if (e.target.id !== 'sidebar' && e.target.className !== 'sidebar_toggler' &&
+          e.target.className !== 'switch') {
+        const sidebar = document.querySelector('#sidebar');
+        sidebar.classList.remove('show');
+      }
+    };
+
     window.addEventListener("click", handleOutsideClick);
     return () => {
         window.removeEventListener("click", handleOutsideClick);
     };
-  }, [handleOutsideClick]);
+  }, []);
 
   return (
     <aside id="sidebar">
