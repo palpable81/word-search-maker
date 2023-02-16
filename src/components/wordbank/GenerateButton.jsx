@@ -18,6 +18,7 @@ export default function GenerateButton() {
     const enteredWords = wordbank.filter(wordEntry => wordEntry.word);
 
     if(!isGenerating && enteredWords.length > 0) {
+      window.scrollTo(0, document.body.scrollHeight);
       dispatch(setIsGenerating(true));
       dispatch(clearGrid());
 
