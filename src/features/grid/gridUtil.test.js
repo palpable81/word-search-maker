@@ -1,5 +1,5 @@
 // import Grid from './grid.js';
-import { HORIZONTAL, VERTICAL, findPosition } from './gridUtil';
+import { HORIZONTAL, VERTICAL, DIAGONAL, findPosition } from './gridUtil';
 
 describe('grid', () => {
   test('find positions randomly when grid is empty', () => {
@@ -50,5 +50,19 @@ describe('grid', () => {
     expect(actual.column).toBe(0);
     expect(actual.direction).toBe(HORIZONTAL);
   });
+
+  test(`finds position diagonally`, () => {
+    const grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
+    grid[0][0] = 'a';
+    grid[1][1] = 'b';
+    const word = 'ab';
+
+    const actual = findPosition(word, grid, null, true);
+    expect(actual.word).toBe(word);
+    expect(actual.row).toBe(0);
+    expect(actual.column).toBe(0);
+    expect(actual.direction).toBe(DIAGONAL);
+  });
+
 });
 

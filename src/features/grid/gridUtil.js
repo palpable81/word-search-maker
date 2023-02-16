@@ -1,6 +1,11 @@
 //DIRECTIONS
 export const VERTICAL = 'V';
 export const HORIZONTAL = 'H';
+export const DIAGONAL = 'D';
+
+//ORDER
+export const FORWARDS = 'F';
+export const BACKWARDS = 'B';
 
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
@@ -23,8 +28,13 @@ function isWordAllowed(grid, word, row, column, direction) {
         return false;
       }
     }
-    else {
+    else if(direction === HORIZONTAL) {
       if(grid[row][column+i] !== null && grid[row][column+i] !== word[i]) {
+        return false;
+      }
+    }
+    else if(direction === DIAGONAL) {
+      if(grid[row+i][column+i] !== null && grid[row+i][column+i] !== word[i]) {
         return false;
       }
     }
@@ -33,22 +43,33 @@ function isWordAllowed(grid, word, row, column, direction) {
   return true;
 }
 
-function getDirectionQueue(lastDirectionPlaced) {
-  if(lastDirectionPlaced === VERTICAL) {
-    return [HORIZONTAL, VERTICAL];
+function getDirectionQueue(lastDirectionPlaced, diagonal=false) {
+  const queue = [HORIZONTAL, VERTICAL];
+  if(diagonal) {
+    queue.push(DIAGONAL);
   }
-  else if(lastDirectionPlaced === HORIZONTAL || Math.random() > 0.5) {
-    return [VERTICAL, HORIZONTAL];
+  const shuffledQueue = shuffle(queue);
+
+  if(shuffledQueue[0] === lastDirectionPlaced) {
+    shuffledQueue.push(shuffledQueue.shift());
   }
-  else {
-    return [HORIZONTAL, VERTICAL];
-  }
+  return shuffledQueue;
+
+  // if(lastDirectionPlaced === VERTICAL) {
+  //   return [HORIZONTAL, VERTICAL];
+  // }
+  // else if(lastDirectionPlaced === HORIZONTAL || Math.random() > 0.5) {
+  //   return [VERTICAL, HORIZONTAL];
+  // }
+  // else {
+  //   return [HORIZONTAL, VERTICAL];
+  // }
 }
 
-export function findPosition(word, grid, lastDirectionPlaced) {
+export function findPosition(word, grid, lastDirectionPlaced, diagonal=false) {
   const rows = grid.length;
   const cols = grid[0].length;
-  const directionQueue = getDirectionQueue(lastDirectionPlaced);
+  const directionQueue = getDirectionQueue(lastDirectionPlaced, diagonal);
 
   if(word.length > rows && word.length > cols) {
     console.log('Word too large');
@@ -77,10 +98,31 @@ export function findPosition(word, grid, lastDirectionPlaced) {
         }
       }
     }
-    else {
+    else if(direction === HORIZONTAL) {
       if(word.length <= cols) {
         // console.log('Direction Horizontal');
         const rowQueue = shuffle([...Array(rows).keys()]);
+        while(rowQueue.length > 0) {
+          const row = rowQueue.shift();
+          const columnQueue = shuffle([...Array(cols - word.length + 1).keys()]);
+          while(columnQueue.length > 0) {
+            const column = columnQueue.shift();
+            if(isWordAllowed(grid, word, row, column, direction)) {
+              return {
+                word: word,
+                row: row,
+                column: column,
+                direction: direction
+              }
+            }
+          }
+        }
+      }
+    }
+    else if(direction === DIAGONAL) {
+      if(word.length <= rows && word.length <= cols) {
+        // console.log('Direction Diagonal');
+        const rowQueue = shuffle([...Array(rows - word.length + 1).keys()]);
         while(rowQueue.length > 0) {
           const row = rowQueue.shift();
           const columnQueue = shuffle([...Array(cols - word.length + 1).keys()]);
