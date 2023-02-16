@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { VERTICAL, findPosition } from './gridUtil';
+import { VERTICAL, HORIZONTAL, findPosition } from './gridUtil';
 
 export const ROWS = 10;
 export const COLS = 10;
@@ -23,8 +23,11 @@ const gridSlice = createSlice({
         if(direction === VERTICAL) {
           state.grid[row+i][column] = word[i];
         }
-        else {
+        else if(direction === HORIZONTAL){
           state.grid[row][column+i] = word[i];
+        }
+        else {
+          state.grid[row+i][column+i] = word[i];
         }
       }
       state.words = state.words.concat(word);
@@ -60,7 +63,8 @@ export const selectIsGenerating = (state) => state.grid.isGenerating;
 // Redux Thunk to place word
 export const placeWord = (word) =>  (dispatch, getState) => {
   const { grid, lastDirectionPlaced } = getState().grid;
-  const position = findPosition(word, grid, lastDirectionPlaced);
+  const { diagonal } = getState().settings;
+  const position = findPosition(word, grid, lastDirectionPlaced, diagonal);
 
   if(position) {
     dispatch(addWord(position));
