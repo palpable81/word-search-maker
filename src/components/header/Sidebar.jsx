@@ -49,33 +49,44 @@ export default function Sidebar() {
 
   return (
     <aside id="sidebar">
-      <div className="sidebar_content sidebar_body">
-        <ul>
-          <li>
-            <input id="displayAnimation" type="checkbox" className="switch" checked={displayAnimation} onChange={handleGenerationAnimationChange}/>
-            <label htmlFor="displayAnimation">Display Animation When Generating Word Search</label>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <input id="diagonalFalse" type="radio" className="radio" name="diagonal" value="false" checked={!diagonal} onChange={handleDiagonalChange}/>
-            <label htmlFor="diagonalFalse">Diagonals Not Allowed</label>
-          </li>
-          <li>
-            <input id="diagonalTrue" type="radio" className="radio" name="diagonal" value="true" checked={diagonal} onChange={handleDiagonalChange}/>
-            <label htmlFor="diagonalTrue">Diagonals Allowed</label>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <input id="backwardsFalse" type="radio" className="radio" name="backwards" value="false" checked={!backwards} onChange={handleBackwardsChange}/>
-            <label htmlFor="backwardsFalse">Forwards Only</label>
-          </li>
-          <li>
-            <input id="backwardsTrue" type="radio" className="radio" name="backwards" value="true" checked={backwards} onChange={handleBackwardsChange}/>
-            <label htmlFor="backwardsTrue">Forwards and Backwards</label>
-          </li>
-        </ul>
+      <div className="sidebar_content">
+        <div>
+          <input id="displayAnimation" type="checkbox" className="switch" checked={displayAnimation} onChange={handleGenerationAnimationChange}/>
+        </div>
+        <div className="label">
+          <label htmlFor="displayAnimation">Display Animation When Generating Word Search</label>
+        </div>
+        <div className="heading">
+          Place Words Diagonally?
+        </div>
+        <div>
+          <input id="diagonalTrue" type="radio" className="radio" name="diagonal" value="true" checked={diagonal} onChange={handleDiagonalChange}/>
+        </div>
+        <div className="label">
+          <label htmlFor="diagonalTrue">Yes</label>
+        </div>
+        <div>
+          <input id="diagonalFalse" type="radio" className="radio" name="diagonal" value="false" checked={!diagonal} onChange={handleDiagonalChange}/>
+        </div>
+        <div className="label">
+          <label htmlFor="diagonalFalse">No</label>
+        </div>
+        <div className="heading">
+          Place Words Backwards?
+        </div>
+        <div>
+          <input id="backwardsTrue" type="radio" className="radio" name="backwards" value="true" checked={backwards} onChange={handleBackwardsChange}/>
+        </div>
+        <div className="label">
+          <label htmlFor="backwardsTrue">Yes</label>
+        </div>
+        <div>
+          <input id="backwardsFalse" type="radio" className="radio" name="backwards" value="false" checked={!backwards} onChange={handleBackwardsChange}/>
+        </div>
+        <div className="label">
+          <label htmlFor="backwardsFalse">No</label>
+        </div>
+        
       </div>
     </aside>
   );
