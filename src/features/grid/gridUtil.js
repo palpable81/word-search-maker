@@ -21,21 +21,52 @@ function shuffle(array) {
   return array;
 }
 
-function isWordAllowed(grid, word, row, column, direction) {
+function isWordAllowed(grid, word, row, column, direction, horizontalOrder, verticalOrder) {
   for(let i = 0; i < word.length; i++) {
     if(direction === VERTICAL) {
-      if(grid[row+i][column] !== null && grid[row+i][column] !== word[i]) {
-        return false;
+      if(verticalOrder === FORWARDS) {
+        if(grid[row+i][column] !== null && grid[row+i][column] !== word[i]) {
+          return false;
+        }
+      }
+      else {
+        if(grid[row-i][column] !== null && grid[row-i][column] !== word[i]) {
+          return false;
+        }
       }
     }
     else if(direction === HORIZONTAL) {
-      if(grid[row][column+i] !== null && grid[row][column+i] !== word[i]) {
-        return false;
+      if(horizontalOrder === FORWARDS) {
+        if(grid[row][column+i] !== null && grid[row][column+i] !== word[i]) {
+          return false;
+        }
+      }
+      else {
+        if(grid[row][column-i] !== null && grid[row][column-i] !== word[i]) {
+          return false;
+        }
       }
     }
     else if(direction === DIAGONAL) {
-      if(grid[row+i][column+i] !== null && grid[row+i][column+i] !== word[i]) {
-        return false;
+      if(horizontalOrder === FORWARDS && verticalOrder === FORWARDS) {
+        if(grid[row+i][column+i] !== null && grid[row+i][column+i] !== word[i]) {
+          return false;
+        }
+      }
+      else if(horizontalOrder === FORWARDS && verticalOrder === BACKWARDS) {
+        if(grid[row-i][column+i] !== null && grid[row-i][column+i] !== word[i]) {
+          return false;
+        }
+      }
+      else if(horizontalOrder === BACKWARDS && verticalOrder === FORWARDS) {
+        if(grid[row+i][column-i] !== null && grid[row+i][column-i] !== word[i]) {
+          return false;
+        }
+      }
+      else if(horizontalOrder === BACKWARDS && verticalOrder === BACKWARDS) {
+        if(grid[row-i][column-i] !== null && grid[row-i][column-i] !== word[i]) {
+          return false;
+        }
       }
     }
   }
@@ -54,19 +85,18 @@ function getDirectionQueue(lastDirectionPlaced, diagonal=false) {
     shuffledQueue.push(shuffledQueue.shift());
   }
   return shuffledQueue;
-
-  // if(lastDirectionPlaced === VERTICAL) {
-  //   return [HORIZONTAL, VERTICAL];
-  // }
-  // else if(lastDirectionPlaced === HORIZONTAL || Math.random() > 0.5) {
-  //   return [VERTICAL, HORIZONTAL];
-  // }
-  // else {
-  //   return [HORIZONTAL, VERTICAL];
-  // }
 }
 
-export function findPosition(word, grid, lastDirectionPlaced, diagonal=false) {
+function getOrderQueue(backwards=false) {
+  const queue = [FORWARDS];
+  if(backwards) {
+    queue.push(BACKWARDS);
+  }
+  const shuffledQueue = shuffle(queue);
+  return shuffledQueue;
+}
+
+export function findPosition(word, grid, lastDirectionPlaced, diagonal=false, backwards=false) {
   const rows = grid.length;
   const cols = grid[0].length;
   const directionQueue = getDirectionQueue(lastDirectionPlaced, diagonal);
@@ -77,63 +107,35 @@ export function findPosition(word, grid, lastDirectionPlaced, diagonal=false) {
   }
   while(directionQueue.length > 0) {
     const direction = directionQueue.shift();
-    if(direction === VERTICAL) {
-      if(word.length <= rows) {
-        // console.log('Direction Vertical');
-        const columnQueue = shuffle([...Array(cols).keys()]);
-        while(columnQueue.length > 0) {
-          const column = columnQueue.shift();
-          const rowQueue = shuffle([...Array(rows - word.length + 1).keys()]);
-          while(rowQueue.length > 0) {
-            const row = rowQueue.shift();
-            if(isWordAllowed(grid, word, row, column, direction)) {
-              return {
-                word: word,
-                row: row,
-                column: column,
-                direction: direction
-              }
-            }
-          }
+    if(word.length <= rows && word.length <= cols) {
+      // console.log('Direction Diagonal');
+      const verticalOrderQueue = getOrderQueue(backwards);
+      while(verticalOrderQueue.length > 0) {
+        const verticalOrder = verticalOrderQueue.shift();
+        let rowQueue = shuffle([...Array(rows - word.length + 1).keys()]);
+        if(verticalOrder === BACKWARDS) {
+          rowQueue = rowQueue.map(i => i + word.length - 1);
         }
-      }
-    }
-    else if(direction === HORIZONTAL) {
-      if(word.length <= cols) {
-        // console.log('Direction Horizontal');
-        const rowQueue = shuffle([...Array(rows).keys()]);
         while(rowQueue.length > 0) {
           const row = rowQueue.shift();
-          const columnQueue = shuffle([...Array(cols - word.length + 1).keys()]);
-          while(columnQueue.length > 0) {
-            const column = columnQueue.shift();
-            if(isWordAllowed(grid, word, row, column, direction)) {
-              return {
-                word: word,
-                row: row,
-                column: column,
-                direction: direction
-              }
+          const horizontalOrderQueue = getOrderQueue(backwards);
+          while(horizontalOrderQueue.length > 0) {
+            const horizontalOrder = horizontalOrderQueue.shift();
+            let columnQueue = shuffle([...Array(cols - word.length + 1).keys()]);
+            if(horizontalOrder === BACKWARDS) {
+              columnQueue = columnQueue.map(i => i + word.length - 1);
             }
-          }
-        }
-      }
-    }
-    else if(direction === DIAGONAL) {
-      if(word.length <= rows && word.length <= cols) {
-        // console.log('Direction Diagonal');
-        const rowQueue = shuffle([...Array(rows - word.length + 1).keys()]);
-        while(rowQueue.length > 0) {
-          const row = rowQueue.shift();
-          const columnQueue = shuffle([...Array(cols - word.length + 1).keys()]);
-          while(columnQueue.length > 0) {
-            const column = columnQueue.shift();
-            if(isWordAllowed(grid, word, row, column, direction)) {
-              return {
-                word: word,
-                row: row,
-                column: column,
-                direction: direction
+            while(columnQueue.length > 0) {
+              const column = columnQueue.shift();
+              if(isWordAllowed(grid, word, row, column, direction, horizontalOrder, verticalOrder)) {
+                return {
+                  word: word,
+                  row: row,
+                  column: column,
+                  direction: direction,
+                  horizontalOrder: horizontalOrder,
+                  verticalOrder: verticalOrder
+                }
               }
             }
           }

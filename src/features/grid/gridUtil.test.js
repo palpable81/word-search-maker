@@ -1,5 +1,5 @@
 // import Grid from './grid.js';
-import { HORIZONTAL, VERTICAL, DIAGONAL, findPosition } from './gridUtil';
+import { HORIZONTAL, VERTICAL, DIAGONAL, FORWARDS, BACKWARDS, findPosition } from './gridUtil';
 
 describe('grid', () => {
   test('find positions randomly when grid is empty', () => {
@@ -22,7 +22,11 @@ describe('grid', () => {
   });
 
   test(`finds position of only empty slot`, () => {
-    const grid = Array(1).fill(null).map(()=>Array(4).fill(null));
+    const grid = Array(4).fill(null).map(()=>Array(4).fill('q'));
+    grid[0][0] = null;
+    grid[0][1] = null;
+    grid[0][2] = null;
+    grid[0][3] = null;
     const word = 'test';
 
     const actual = findPosition(word, grid, null);
@@ -62,6 +66,64 @@ describe('grid', () => {
     expect(actual.row).toBe(0);
     expect(actual.column).toBe(0);
     expect(actual.direction).toBe(DIAGONAL);
+  });
+
+  test(`finds position backwards horizontally`, () => {
+    const grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
+    grid[0][0] = 'b';
+    grid[0][1] = 'a';
+    const word = 'ab';
+
+    const actual = findPosition(word, grid, null, false, true);
+    expect(actual.word).toBe(word);
+    expect(actual.row).toBe(0);
+    expect(actual.column).toBe(1);
+    expect(actual.direction).toBe(HORIZONTAL);
+    expect(actual.horizontalOrder).toBe(BACKWARDS);
+  });
+
+  test(`finds position backwards vertically`, () => {
+    const grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
+    grid[0][0] = 'b';
+    grid[1][0] = 'a';
+    const word = 'ab';
+
+    const actual = findPosition(word, grid, null, false, true);
+    expect(actual.word).toBe(word);
+    expect(actual.row).toBe(1);
+    expect(actual.column).toBe(0);
+    expect(actual.direction).toBe(VERTICAL);
+    expect(actual.verticalOrder).toBe(BACKWARDS);
+  });
+
+  test(`finds position top-right to bottom-left diagonally`, () => {
+    const grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
+    grid[1][0] = 'b';
+    grid[0][1] = 'a';
+    const word = 'ab';
+
+    const actual = findPosition(word, grid, null, true, true);
+    expect(actual.word).toBe(word);
+    expect(actual.row).toBe(0);
+    expect(actual.column).toBe(1);
+    expect(actual.direction).toBe(DIAGONAL);
+    expect(actual.horizontalOrder).toBe(BACKWARDS);
+    expect(actual.verticalOrder).toBe(FORWARDS);
+  });
+
+  test(`finds position bottom-right to top-left diagonally`, () => {
+    const grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
+    grid[0][0] = 'b';
+    grid[1][1] = 'a';
+    const word = 'ab';
+
+    const actual = findPosition(word, grid, null, true, true);
+    expect(actual.word).toBe(word);
+    expect(actual.row).toBe(1);
+    expect(actual.column).toBe(1);
+    expect(actual.direction).toBe(DIAGONAL);
+    expect(actual.horizontalOrder).toBe(BACKWARDS);
+    expect(actual.verticalOrder).toBe(BACKWARDS);
   });
 
 });

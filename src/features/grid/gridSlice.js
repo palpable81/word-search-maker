@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { VERTICAL, HORIZONTAL, findPosition } from './gridUtil';
+import { VERTICAL, HORIZONTAL, FORWARDS, BACKWARDS, findPosition } from './gridUtil';
 
 export const ROWS = 10;
 export const COLS = 10;
@@ -18,16 +18,37 @@ const gridSlice = createSlice({
   initialState: initialState,
   reducers: {
     addWord: (state, action) => {
-      const {word, row, column, direction} = action.payload;
+      const {word, row, column, direction, horizontalOrder, verticalOrder} = action.payload;
       for(let i = 0; i < word.length; i++) {
         if(direction === VERTICAL) {
-          state.grid[row+i][column] = word[i];
+          if(verticalOrder === FORWARDS) {
+            state.grid[row+i][column] = word[i];
+          }
+          else {
+            state.grid[row-i][column] = word[i];
+          }
         }
         else if(direction === HORIZONTAL){
-          state.grid[row][column+i] = word[i];
+          if(horizontalOrder === FORWARDS) {
+            state.grid[row][column+i] = word[i];
+          }
+          else {
+            state.grid[row][column-i] = word[i];
+          }
         }
         else {
-          state.grid[row+i][column+i] = word[i];
+          if(verticalOrder === FORWARDS && horizontalOrder === FORWARDS) {
+            state.grid[row+i][column+i] = word[i];
+          }
+          else if(verticalOrder === BACKWARDS && horizontalOrder === FORWARDS) {
+            state.grid[row-i][column+i] = word[i];
+          }
+          else if(verticalOrder === FORWARDS && horizontalOrder === BACKWARDS) {
+            state.grid[row+i][column-i] = word[i];
+          }
+          else {
+            state.grid[row-i][column-i] = word[i];
+          }
         }
       }
       state.words = state.words.concat(word);
@@ -63,8 +84,8 @@ export const selectIsGenerating = (state) => state.grid.isGenerating;
 // Redux Thunk to place word
 export const placeWord = (word) =>  (dispatch, getState) => {
   const { grid, lastDirectionPlaced } = getState().grid;
-  const { diagonal } = getState().settings;
-  const position = findPosition(word, grid, lastDirectionPlaced, diagonal);
+  const { diagonal, backwards } = getState().settings;
+  const position = findPosition(word, grid, lastDirectionPlaced, diagonal, backwards);
 
   if(position) {
     dispatch(addWord(position));
