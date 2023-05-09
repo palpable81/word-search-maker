@@ -9,7 +9,7 @@ export default function Wordbank() {
 
   return (
     <div className='wordbank'>
-      {wordbank.map((wordEntry, i) => <Word wordEntry={wordEntry} key={i} id={i}/>)}
+      {wordbank.map((wordEntry: any, i: any) => <Word wordEntry={wordEntry} key={i} id={i}/>)}
     </div>
   );
 }

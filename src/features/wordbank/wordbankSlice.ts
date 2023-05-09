@@ -25,6 +25,6 @@ const wordbankSlice = createSlice({
 
 export const { setWord, setWordStatus } = wordbankSlice.actions;
 
-export const selectWordbank = (state) => state.wordbank.wordbank;
+export const selectWordbank = (state: any) => state.wordbank.wordbank;
 
 export default wordbankSlice.reducer;

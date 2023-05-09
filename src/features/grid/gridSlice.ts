@@ -77,12 +77,12 @@ const gridSlice = createSlice({
 });
 
 export const { addWord, fillRemainingSquares, clearGrid, setIsGenerating } = gridSlice.actions;
-export const selectGrid = (state) => state.grid.grid;
-export const selectFinished = (state) => state.grid.finished;
-export const selectIsGenerating = (state) => state.grid.isGenerating;
+export const selectGrid = (state: any) => state.grid.grid;
+export const selectFinished = (state: any) => state.grid.finished;
+export const selectIsGenerating = (state: any) => state.grid.isGenerating;
 
 // Redux Thunk to place word
-export const placeWord = (word) =>  (dispatch, getState) => {
+export const placeWord = (word: any) =>  (dispatch: any, getState: any) => {
   const { grid, lastDirectionPlaced } = getState().grid;
   const { diagonal, backwards } = getState().settings;
   const position = findPosition(word, grid, lastDirectionPlaced, diagonal, backwards);

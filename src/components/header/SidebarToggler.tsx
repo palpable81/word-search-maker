@@ -3,7 +3,9 @@ export default function SidebarToggler() {
 
   const handleOnClick = () => {
     const sidebar = document.querySelector('#sidebar');
-    sidebar.classList.toggle('show');
+    if(sidebar) {
+      sidebar.classList.toggle('show');
+    }
   };
 
   return (

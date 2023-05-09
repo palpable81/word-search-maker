@@ -7,7 +7,7 @@ export const DIAGONAL = 'D';
 export const FORWARDS = 'F';
 export const BACKWARDS = 'B';
 
-function shuffle(array) {
+function shuffle(array: any) {
   let currentIndex = array.length,  randomIndex;
 
   while (currentIndex > 1) {
@@ -21,7 +21,7 @@ function shuffle(array) {
   return array;
 }
 
-function isWordAllowed(grid, word, row, column, direction, horizontalOrder, verticalOrder) {
+function isWordAllowed(grid: any, word: any, row: any, column: any, direction: any, horizontalOrder: any, verticalOrder: any) {
   for(let i = 0; i < word.length; i++) {
     if(direction === VERTICAL) {
       if(verticalOrder === FORWARDS) {
@@ -74,7 +74,7 @@ function isWordAllowed(grid, word, row, column, direction, horizontalOrder, vert
   return true;
 }
 
-function getDirectionQueue(lastDirectionPlaced, diagonal=false) {
+function getDirectionQueue(lastDirectionPlaced: any, diagonal=false) {
   const queue = [HORIZONTAL, VERTICAL];
   if(diagonal) {
     queue.push(DIAGONAL);
@@ -96,7 +96,7 @@ function getOrderQueue(backwards=false) {
   return shuffledQueue;
 }
 
-export function findPosition(word, grid, lastDirectionPlaced, diagonal=false, backwards=false) {
+export function findPosition(word: any, grid: any, lastDirectionPlaced: any, diagonal=false, backwards=false) {
   const rows = grid.length;
   const cols = grid[0].length;
   const directionQueue = getDirectionQueue(lastDirectionPlaced, diagonal);
@@ -114,7 +114,7 @@ export function findPosition(word, grid, lastDirectionPlaced, diagonal=false, ba
         const verticalOrder = verticalOrderQueue.shift();
         let rowQueue = shuffle([...Array(rows - word.length + 1).keys()]);
         if(verticalOrder === BACKWARDS) {
-          rowQueue = rowQueue.map(i => i + word.length - 1);
+          rowQueue = rowQueue.map((i: any) => i + word.length - 1);
         }
         while(rowQueue.length > 0) {
           const row = rowQueue.shift();
@@ -123,7 +123,7 @@ export function findPosition(word, grid, lastDirectionPlaced, diagonal=false, ba
             const horizontalOrder = horizontalOrderQueue.shift();
             let columnQueue = shuffle([...Array(cols - word.length + 1).keys()]);
             if(horizontalOrder === BACKWARDS) {
-              columnQueue = columnQueue.map(i => i + word.length - 1);
+              columnQueue = columnQueue.map((i: any) => i + word.length - 1);
             }
             while(columnQueue.length > 0) {
               const column = columnQueue.shift();

@@ -9,7 +9,7 @@ export default function Grid() {
   return (
     <div className='grid'>
       <div className='grid-outline'>
-        {grid.map((gridRow, i) => <GridRow gridRow={gridRow} key={i}/>)}
+        {grid.map((gridRow: any, i: any) => <GridRow gridRow={gridRow} key={i}/>)}
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ export default function Sidebar() {
     dispatch(toggleAnimation());
   }
 
-  const handleBackwardsChange = (e) => {
+  const handleBackwardsChange = (e: any) => {
     let newValue = false;
     if(e.target.value === "true") {
       newValue = true;
@@ -22,7 +22,7 @@ export default function Sidebar() {
     dispatch(setBackwards(newValue));
   }
   
-  const handleDiagonalChange = (e) => {
+  const handleDiagonalChange = (e: any) => {
     let newValue = false;
     if(e.target.value === "true") {
       newValue = true;
@@ -31,13 +31,15 @@ export default function Sidebar() {
   }
 
   useEffect(() => {
-    const handleOutsideClick = e => {
+    const handleOutsideClick = (e: any) => {
       if (e.target.id !== 'sidebar' && 
           e.target.className !== 'sidebar_toggler' &&
           e.target.className !== 'switch' &&
           e.target.className !== 'radio') {
         const sidebar = document.querySelector('#sidebar');
-        sidebar.classList.remove('show');
+        if(sidebar) {
+          sidebar.classList.remove('show');
+        }
       }
     };
 

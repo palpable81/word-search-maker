@@ -24,8 +24,8 @@ const settingsSlice = createSlice({
 
 export const { toggleAnimation, setDiagonal, setBackwards } = settingsSlice.actions;
 
-export const selectDisplayAnimation = (state) => state.settings.displayAnimation;
-export const selectDiagonal = (state) => state.settings.diagonal;
-export const selectBackwards = (state) => state.settings.backwards;
+export const selectDisplayAnimation = (state: any) => state.settings.displayAnimation;
+export const selectDiagonal = (state: any) => state.settings.diagonal;
+export const selectBackwards = (state: any) => state.settings.backwards;
 
 export default settingsSlice.reducer;

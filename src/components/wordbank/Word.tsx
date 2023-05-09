@@ -2,18 +2,20 @@ import { setWord } from '../../features/wordbank/wordbankSlice';
 import { ROWS } from '../../features/grid/gridSlice';
 import { useDispatch } from "react-redux";
 
-export default function Word(props) {
+export default function Word(props: any) {
   const dispatch = useDispatch();
   const id = props.id;
   const word = props.wordEntry.word;
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: any) => {
     if (event.key === "ArrowDown") {
       const currId = ~~event.target.id[event.target.id.length - 1];
       if(currId < 9) {
         const nextId = currId+1;
         const nextElement = document.getElementById('word'+nextId);
-        nextElement.focus();
+        if(nextElement) {
+          nextElement.focus();
+        }
         event.preventDefault();
       }
     }
@@ -22,17 +24,21 @@ export default function Word(props) {
       if(currId > 0) {
         const prevId = currId-1;
         const prevElement = document.getElementById('word'+prevId);
-        prevElement.focus();
+        if(prevElement) {
+          prevElement.focus();
+        }
         event.preventDefault();
       }
     }
     else if (event.key === 'Enter') {
       const generateButton = document.getElementById('generate-button');
-      generateButton.click();
+      if(generateButton) {
+        generateButton.click();
+      }
     }
   }
 
-  const handleChange = ({target}) => {
+  const handleChange = ({target}: any) => {
     const allowedChars = target.value.replace(/[^a-zA-Z ]/gi, '').toUpperCase().trimStart();
     let newWord = "";
     let strLengthWithoutSpaces = 0;

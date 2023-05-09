@@ -7,10 +7,13 @@ describe('grid', () => {
     const word = 'test';
 
     const actual = findPosition(word, grid, null);
-    expect(actual.word).toBe(word);
-    expect(actual.row).toBeLessThanOrEqual(3);
-    expect(actual.column).toBeLessThanOrEqual(3);
-    expect([HORIZONTAL, VERTICAL]).toContain(actual.direction);
+    expect(actual).not.toBeNull();
+    if(actual) {
+      expect(actual.word).toBe(word);
+      expect(actual.row).toBeLessThanOrEqual(3);
+      expect(actual.column).toBeLessThanOrEqual(3);
+      expect([HORIZONTAL, VERTICAL]).toContain(actual.direction);
+    }
   });
 
   test(`can't find position if grid is full`, () => {
@@ -30,10 +33,13 @@ describe('grid', () => {
     const word = 'test';
 
     const actual = findPosition(word, grid, null);
-    expect(actual.word).toBe(word);
-    expect(actual.row).toBe(0);
-    expect(actual.column).toBe(0);
-    expect(actual.direction).toBe(HORIZONTAL);
+    expect(actual).not.toBeNull();
+    if(actual) {
+      expect(actual.word).toBe(word);
+      expect(actual.row).toBe(0);
+      expect(actual.column).toBe(0);
+      expect(actual.direction).toBe(HORIZONTAL);
+    }
   });
 
   test(`doesn't find position for word that exceeds dimensions of grid`, () => {
@@ -49,10 +55,13 @@ describe('grid', () => {
     const word = 'test';
 
     const actual = findPosition(word, grid, VERTICAL);
-    expect(actual.word).toBe(word);
-    expect(actual.row).toBeLessThanOrEqual(3);
-    expect(actual.column).toBe(0);
-    expect(actual.direction).toBe(HORIZONTAL);
+    expect(actual).not.toBeNull();
+    if(actual) {
+      expect(actual.word).toBe(word);
+      expect(actual.row).toBeLessThanOrEqual(3);
+      expect(actual.column).toBe(0);
+      expect(actual.direction).toBe(HORIZONTAL);
+    }
   });
 
   test(`finds position diagonally`, () => {
@@ -62,10 +71,13 @@ describe('grid', () => {
     const word = 'ab';
 
     const actual = findPosition(word, grid, null, true);
-    expect(actual.word).toBe(word);
-    expect(actual.row).toBe(0);
-    expect(actual.column).toBe(0);
-    expect(actual.direction).toBe(DIAGONAL);
+    expect(actual).not.toBeNull();
+    if(actual) {
+      expect(actual.word).toBe(word);
+      expect(actual.row).toBe(0);
+      expect(actual.column).toBe(0);
+      expect(actual.direction).toBe(DIAGONAL);
+    }
   });
 
   test(`finds position backwards horizontally`, () => {
@@ -75,11 +87,14 @@ describe('grid', () => {
     const word = 'ab';
 
     const actual = findPosition(word, grid, null, false, true);
-    expect(actual.word).toBe(word);
-    expect(actual.row).toBe(0);
-    expect(actual.column).toBe(1);
-    expect(actual.direction).toBe(HORIZONTAL);
-    expect(actual.horizontalOrder).toBe(BACKWARDS);
+    expect(actual).not.toBeNull();
+    if(actual) {
+      expect(actual.word).toBe(word);
+      expect(actual.row).toBe(0);
+      expect(actual.column).toBe(1);
+      expect(actual.direction).toBe(HORIZONTAL);
+      expect(actual.horizontalOrder).toBe(BACKWARDS);
+    }
   });
 
   test(`finds position backwards vertically`, () => {
@@ -89,11 +104,14 @@ describe('grid', () => {
     const word = 'ab';
 
     const actual = findPosition(word, grid, null, false, true);
-    expect(actual.word).toBe(word);
-    expect(actual.row).toBe(1);
-    expect(actual.column).toBe(0);
-    expect(actual.direction).toBe(VERTICAL);
-    expect(actual.verticalOrder).toBe(BACKWARDS);
+    expect(actual).not.toBeNull();
+    if(actual) {
+      expect(actual.word).toBe(word);
+      expect(actual.row).toBe(1);
+      expect(actual.column).toBe(0);
+      expect(actual.direction).toBe(VERTICAL);
+      expect(actual.verticalOrder).toBe(BACKWARDS);
+    }
   });
 
   test(`finds position top-right to bottom-left diagonally`, () => {
@@ -103,12 +121,15 @@ describe('grid', () => {
     const word = 'ab';
 
     const actual = findPosition(word, grid, null, true, true);
-    expect(actual.word).toBe(word);
-    expect(actual.row).toBe(0);
-    expect(actual.column).toBe(1);
-    expect(actual.direction).toBe(DIAGONAL);
-    expect(actual.horizontalOrder).toBe(BACKWARDS);
-    expect(actual.verticalOrder).toBe(FORWARDS);
+    expect(actual).not.toBeNull();
+    if(actual) {
+      expect(actual.word).toBe(word);
+      expect(actual.row).toBe(0);
+      expect(actual.column).toBe(1);
+      expect(actual.direction).toBe(DIAGONAL);
+      expect(actual.horizontalOrder).toBe(BACKWARDS);
+      expect(actual.verticalOrder).toBe(FORWARDS);
+    }
   });
 
   test(`finds position bottom-right to top-left diagonally`, () => {
@@ -118,12 +139,15 @@ describe('grid', () => {
     const word = 'ab';
 
     const actual = findPosition(word, grid, null, true, true);
-    expect(actual.word).toBe(word);
-    expect(actual.row).toBe(1);
-    expect(actual.column).toBe(1);
-    expect(actual.direction).toBe(DIAGONAL);
-    expect(actual.horizontalOrder).toBe(BACKWARDS);
-    expect(actual.verticalOrder).toBe(BACKWARDS);
+    expect(actual).not.toBeNull();
+    if(actual) {
+      expect(actual.word).toBe(word);
+      expect(actual.row).toBe(1);
+      expect(actual.column).toBe(1);
+      expect(actual.direction).toBe(DIAGONAL);
+      expect(actual.horizontalOrder).toBe(BACKWARDS);
+      expect(actual.verticalOrder).toBe(BACKWARDS);
+    }
   });
 
 });
