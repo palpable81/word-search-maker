@@ -5,13 +5,20 @@ export const ROWS = 10;
 export const COLS = 10;
 const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-const initialState = {
+export interface GridState {
+  grid: string[][],
+  words: string[],
+  lastDirectionPlaced?: Direction,
+  finished: boolean,
+  isGenerating: boolean
+}
+
+const initialState: GridState = {
   grid: Array(ROWS).fill(null).map(()=>Array(COLS).fill(null)),
   words: [],
-  lastDirectionPlaced: null,
   finished: false,
   isGenerating: false
-};
+}
 
 const gridSlice = createSlice({
   name: 'grid',
