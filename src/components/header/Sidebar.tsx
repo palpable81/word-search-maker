@@ -1,14 +1,14 @@
 import './sidebar.css';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { toggleAnimation, setDiagonal, setBackwards, 
          selectDisplayAnimation, selectDiagonal, selectBackwards } from '../../features/settings/settingsSlice';
 
 export default function Sidebar() {
-  const displayAnimation = useSelector(selectDisplayAnimation);
-  const diagonal = useSelector(selectDiagonal);
-  const backwards = useSelector(selectBackwards);
-  const dispatch = useDispatch();
+  const displayAnimation = useAppSelector(selectDisplayAnimation);
+  const diagonal = useAppSelector(selectDiagonal);
+  const backwards = useAppSelector(selectBackwards);
+  const dispatch = useAppDispatch();
 
   const handleGenerationAnimationChange = () => {
     dispatch(toggleAnimation());

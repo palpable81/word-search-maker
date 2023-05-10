@@ -1,11 +1,11 @@
 import './wordbank.css';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../app/hooks';
 import { selectWordbank } from '../../features/wordbank/wordbankSlice';
 
 import Word from './Word';
 
 export default function Wordbank() {
-  const wordbank = useSelector(selectWordbank);
+  const wordbank = useAppSelector(selectWordbank);
 
   return (
     <div className='wordbank'>

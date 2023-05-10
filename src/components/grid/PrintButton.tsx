@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../app/hooks';
 import { selectFinished } from '../../features/grid/gridSlice';
 
 export default function PrintButton() {
-  const finished = useSelector(selectFinished);
+  const finished = useAppSelector(selectFinished);
 
   const handleOnClick = () => {
     window.print();

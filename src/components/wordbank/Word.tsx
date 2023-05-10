@@ -1,9 +1,9 @@
 import { setWord } from '../../features/wordbank/wordbankSlice';
 import { ROWS } from '../../features/grid/gridSlice';
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../app/hooks";
 
 export default function Word(props: any) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const id = props.id;
   const word = props.wordEntry.word;
 

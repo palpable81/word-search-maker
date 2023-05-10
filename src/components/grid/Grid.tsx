@@ -1,10 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../app/hooks';
 import { selectGrid } from '../../features/grid/gridSlice';
 
 import GridRow from './GridRow';
 
 export default function Grid() {
-  const grid = useSelector(selectGrid);
+  const grid = useAppSelector(selectGrid);
 
   return (
     <div className='grid'>
