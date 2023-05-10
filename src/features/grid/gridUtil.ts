@@ -4,9 +4,6 @@ export enum Direction {
   HORIZONTAL,
   DIAGONAL
 }
-// export const VERTICAL = 'V';
-// export const HORIZONTAL = 'H';
-// export const DIAGONAL = 'D';
 
 //ORDER
 export const FORWARDS = 'F';
