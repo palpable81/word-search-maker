@@ -33,52 +33,16 @@ function shuffle(array: any) {
 }
 
 function isWordAllowed(grid: any, word: any, row: any, column: any, direction: any, horizontalOrder: any, verticalOrder: any) {
-  for(let i = 0; i < word.length; i++) {
-    if(direction === Direction.VERTICAL) {
-      if(verticalOrder === Order.FORWARDS) {
-        if(grid[row+i][column] !== null && grid[row+i][column] !== word[i]) {
-          return false;
-        }
-      }
-      else {
-        if(grid[row-i][column] !== null && grid[row-i][column] !== word[i]) {
-          return false;
-        }
-      }
-    }
-    else if(direction === Direction.HORIZONTAL) {
-      if(horizontalOrder === Order.FORWARDS) {
-        if(grid[row][column+i] !== null && grid[row][column+i] !== word[i]) {
-          return false;
-        }
-      }
-      else {
-        if(grid[row][column-i] !== null && grid[row][column-i] !== word[i]) {
-          return false;
-        }
-      }
-    }
-    else if(direction === Direction.DIAGONAL) {
-      if(horizontalOrder === Order.FORWARDS && verticalOrder === Order.FORWARDS) {
-        if(grid[row+i][column+i] !== null && grid[row+i][column+i] !== word[i]) {
-          return false;
-        }
-      }
-      else if(horizontalOrder === Order.FORWARDS && verticalOrder === Order.BACKWARDS) {
-        if(grid[row-i][column+i] !== null && grid[row-i][column+i] !== word[i]) {
-          return false;
-        }
-      }
-      else if(horizontalOrder === Order.BACKWARDS && verticalOrder === Order.FORWARDS) {
-        if(grid[row+i][column-i] !== null && grid[row+i][column-i] !== word[i]) {
-          return false;
-        }
-      }
-      else if(horizontalOrder === Order.BACKWARDS && verticalOrder === Order.BACKWARDS) {
-        if(grid[row-i][column-i] !== null && grid[row-i][column-i] !== word[i]) {
-          return false;
-        }
-      }
+  const getCellValue = (r: any, c: any) => grid[r] && grid[r][c];
+
+  for (let i = 0; i < word.length; i++) {
+    const currentRow = direction !== Direction.HORIZONTAL ? row + (verticalOrder === Order.FORWARDS ? i : -i) : row;
+    const currentColumn = direction !== Direction.VERTICAL ? column + (horizontalOrder === Order.FORWARDS ? i : -i) : column;
+    
+    const cellValue = getCellValue(currentRow, currentColumn);
+
+    if (cellValue !== null && cellValue !== word[i]) {
+      return false;
     }
   }
 
