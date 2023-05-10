@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Direction, Order, findPosition } from './gridUtil';
+import { Direction, Order, wordPosition, findPosition } from './gridUtil';
 
 export const ROWS = 10;
 export const COLS = 10;
@@ -24,7 +24,7 @@ const gridSlice = createSlice({
   name: 'grid',
   initialState: initialState,
   reducers: {
-    addWord: (state, action) => {
+    addWord: (state, action: PayloadAction<wordPosition>) => {
       const {word, row, column, direction, horizontalOrder, verticalOrder} = action.payload;
       for(let i = 0; i < word.length; i++) {
         if(direction === Direction.VERTICAL) {
@@ -77,7 +77,7 @@ const gridSlice = createSlice({
       state.words = [];
       state.finished = false;
     },
-    setIsGenerating: (state, action) => {
+    setIsGenerating: (state, action: PayloadAction<boolean>) => {
       state.isGenerating = action.payload;
     }
   }
@@ -92,7 +92,7 @@ export const selectIsGenerating = (state: any) => state.grid.isGenerating;
 export const placeWord = (word: any) =>  (dispatch: any, getState: any) => {
   const { grid, lastDirectionPlaced } = getState().grid;
   const { diagonal, backwards } = getState().settings;
-  const position = findPosition(word, grid, lastDirectionPlaced, diagonal, backwards);
+  const position: wordPosition | null = findPosition(word, grid, lastDirectionPlaced, diagonal, backwards);
 
   if(position) {
     dispatch(addWord(position));

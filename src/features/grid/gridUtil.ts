@@ -9,6 +9,15 @@ export enum Order {
   BACKWARDS
 }
 
+export type wordPosition = {
+  word: string,
+  row: number,
+  column: number,
+  direction: Direction,
+  horizontalOrder: Order,
+  verticalOrder: Order
+}
+
 function shuffle(array: any) {
   let currentIndex = array.length,  randomIndex;
 
@@ -98,13 +107,12 @@ function getOrderQueue(backwards=false) {
   return shuffledQueue;
 }
 
-export function findPosition(word: any, grid: any, lastDirectionPlaced: any, diagonal=false, backwards=false) {
+export function findPosition(word: any, grid: any, lastDirectionPlaced: any, diagonal=false, backwards=false): wordPosition | null {
   const rows = grid.length;
   const cols = grid[0].length;
   const directionQueue = getDirectionQueue(lastDirectionPlaced, diagonal);
 
   if(word.length > rows && word.length > cols) {
-    console.log('Word too large');
     return null;
   }
   while(directionQueue.length > 0) {
