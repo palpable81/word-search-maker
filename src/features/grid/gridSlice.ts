@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Direction, FORWARDS, BACKWARDS, findPosition } from './gridUtil';
+import { Direction, Order, findPosition } from './gridUtil';
 
 export const ROWS = 10;
 export const COLS = 10;
@@ -21,7 +21,7 @@ const gridSlice = createSlice({
       const {word, row, column, direction, horizontalOrder, verticalOrder} = action.payload;
       for(let i = 0; i < word.length; i++) {
         if(direction === Direction.VERTICAL) {
-          if(verticalOrder === FORWARDS) {
+          if(verticalOrder === Order.FORWARDS) {
             state.grid[row+i][column] = word[i];
           }
           else {
@@ -29,7 +29,7 @@ const gridSlice = createSlice({
           }
         }
         else if(direction === Direction.HORIZONTAL){
-          if(horizontalOrder === FORWARDS) {
+          if(horizontalOrder === Order.FORWARDS) {
             state.grid[row][column+i] = word[i];
           }
           else {
@@ -37,13 +37,13 @@ const gridSlice = createSlice({
           }
         }
         else {
-          if(verticalOrder === FORWARDS && horizontalOrder === FORWARDS) {
+          if(verticalOrder === Order.FORWARDS && horizontalOrder === Order.FORWARDS) {
             state.grid[row+i][column+i] = word[i];
           }
-          else if(verticalOrder === BACKWARDS && horizontalOrder === FORWARDS) {
+          else if(verticalOrder === Order.BACKWARDS && horizontalOrder === Order.FORWARDS) {
             state.grid[row-i][column+i] = word[i];
           }
-          else if(verticalOrder === FORWARDS && horizontalOrder === BACKWARDS) {
+          else if(verticalOrder === Order.FORWARDS && horizontalOrder === Order.BACKWARDS) {
             state.grid[row+i][column-i] = word[i];
           }
           else {

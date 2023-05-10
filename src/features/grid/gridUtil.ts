@@ -1,13 +1,13 @@
-//DIRECTIONS
 export enum Direction {
   VERTICAL,
   HORIZONTAL,
   DIAGONAL
 }
 
-//ORDER
-export const FORWARDS = 'F';
-export const BACKWARDS = 'B';
+export enum Order {
+  FORWARDS,
+  BACKWARDS
+}
 
 function shuffle(array: any) {
   let currentIndex = array.length,  randomIndex;
@@ -26,7 +26,7 @@ function shuffle(array: any) {
 function isWordAllowed(grid: any, word: any, row: any, column: any, direction: any, horizontalOrder: any, verticalOrder: any) {
   for(let i = 0; i < word.length; i++) {
     if(direction === Direction.VERTICAL) {
-      if(verticalOrder === FORWARDS) {
+      if(verticalOrder === Order.FORWARDS) {
         if(grid[row+i][column] !== null && grid[row+i][column] !== word[i]) {
           return false;
         }
@@ -38,7 +38,7 @@ function isWordAllowed(grid: any, word: any, row: any, column: any, direction: a
       }
     }
     else if(direction === Direction.HORIZONTAL) {
-      if(horizontalOrder === FORWARDS) {
+      if(horizontalOrder === Order.FORWARDS) {
         if(grid[row][column+i] !== null && grid[row][column+i] !== word[i]) {
           return false;
         }
@@ -50,22 +50,22 @@ function isWordAllowed(grid: any, word: any, row: any, column: any, direction: a
       }
     }
     else if(direction === Direction.DIAGONAL) {
-      if(horizontalOrder === FORWARDS && verticalOrder === FORWARDS) {
+      if(horizontalOrder === Order.FORWARDS && verticalOrder === Order.FORWARDS) {
         if(grid[row+i][column+i] !== null && grid[row+i][column+i] !== word[i]) {
           return false;
         }
       }
-      else if(horizontalOrder === FORWARDS && verticalOrder === BACKWARDS) {
+      else if(horizontalOrder === Order.FORWARDS && verticalOrder === Order.BACKWARDS) {
         if(grid[row-i][column+i] !== null && grid[row-i][column+i] !== word[i]) {
           return false;
         }
       }
-      else if(horizontalOrder === BACKWARDS && verticalOrder === FORWARDS) {
+      else if(horizontalOrder === Order.BACKWARDS && verticalOrder === Order.FORWARDS) {
         if(grid[row+i][column-i] !== null && grid[row+i][column-i] !== word[i]) {
           return false;
         }
       }
-      else if(horizontalOrder === BACKWARDS && verticalOrder === BACKWARDS) {
+      else if(horizontalOrder === Order.BACKWARDS && verticalOrder === Order.BACKWARDS) {
         if(grid[row-i][column-i] !== null && grid[row-i][column-i] !== word[i]) {
           return false;
         }
@@ -90,9 +90,9 @@ function getDirectionQueue(lastDirectionPlaced: any, diagonal=false) {
 }
 
 function getOrderQueue(backwards=false) {
-  const queue = [FORWARDS];
+  const queue = [Order.FORWARDS];
   if(backwards) {
-    queue.push(BACKWARDS);
+    queue.push(Order.BACKWARDS);
   }
   const shuffledQueue = shuffle(queue);
   return shuffledQueue;
@@ -115,7 +115,7 @@ export function findPosition(word: any, grid: any, lastDirectionPlaced: any, dia
       while(verticalOrderQueue.length > 0) {
         const verticalOrder = verticalOrderQueue.shift();
         let rowQueue = shuffle([...Array(rows - word.length + 1).keys()]);
-        if(verticalOrder === BACKWARDS) {
+        if(verticalOrder === Order.BACKWARDS) {
           rowQueue = rowQueue.map((i: any) => i + word.length - 1);
         }
         while(rowQueue.length > 0) {
@@ -124,7 +124,7 @@ export function findPosition(word: any, grid: any, lastDirectionPlaced: any, dia
           while(horizontalOrderQueue.length > 0) {
             const horizontalOrder = horizontalOrderQueue.shift();
             let columnQueue = shuffle([...Array(cols - word.length + 1).keys()]);
-            if(horizontalOrder === BACKWARDS) {
+            if(horizontalOrder === Order.BACKWARDS) {
               columnQueue = columnQueue.map((i: any) => i + word.length - 1);
             }
             while(columnQueue.length > 0) {

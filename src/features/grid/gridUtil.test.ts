@@ -1,5 +1,5 @@
 // import Grid from './grid.js';
-import { Direction, FORWARDS, BACKWARDS, findPosition } from './gridUtil';
+import { Direction, Order, findPosition } from './gridUtil';
 
 describe('grid', () => {
   test('find positions randomly when grid is empty', () => {
@@ -93,7 +93,7 @@ describe('grid', () => {
       expect(actual.row).toBe(0);
       expect(actual.column).toBe(1);
       expect(actual.direction).toBe(Direction.HORIZONTAL);
-      expect(actual.horizontalOrder).toBe(BACKWARDS);
+      expect(actual.horizontalOrder).toBe(Order.BACKWARDS);
     }
   });
 
@@ -110,7 +110,7 @@ describe('grid', () => {
       expect(actual.row).toBe(1);
       expect(actual.column).toBe(0);
       expect(actual.direction).toBe(Direction.VERTICAL);
-      expect(actual.verticalOrder).toBe(BACKWARDS);
+      expect(actual.verticalOrder).toBe(Order.BACKWARDS);
     }
   });
 
@@ -127,8 +127,8 @@ describe('grid', () => {
       expect(actual.row).toBe(0);
       expect(actual.column).toBe(1);
       expect(actual.direction).toBe(Direction.DIAGONAL);
-      expect(actual.horizontalOrder).toBe(BACKWARDS);
-      expect(actual.verticalOrder).toBe(FORWARDS);
+      expect(actual.horizontalOrder).toBe(Order.BACKWARDS);
+      expect(actual.verticalOrder).toBe(Order.FORWARDS);
     }
   });
 
@@ -145,8 +145,8 @@ describe('grid', () => {
       expect(actual.row).toBe(1);
       expect(actual.column).toBe(1);
       expect(actual.direction).toBe(Direction.DIAGONAL);
-      expect(actual.horizontalOrder).toBe(BACKWARDS);
-      expect(actual.verticalOrder).toBe(BACKWARDS);
+      expect(actual.horizontalOrder).toBe(Order.BACKWARDS);
+      expect(actual.verticalOrder).toBe(Order.BACKWARDS);
     }
   });
 
