@@ -1,5 +1,5 @@
 // import Grid from './grid.js';
-import { HORIZONTAL, VERTICAL, DIAGONAL, FORWARDS, BACKWARDS, findPosition } from './gridUtil';
+import { Direction, FORWARDS, BACKWARDS, findPosition } from './gridUtil';
 
 describe('grid', () => {
   test('find positions randomly when grid is empty', () => {
@@ -12,7 +12,7 @@ describe('grid', () => {
       expect(actual.word).toBe(word);
       expect(actual.row).toBeLessThanOrEqual(3);
       expect(actual.column).toBeLessThanOrEqual(3);
-      expect([HORIZONTAL, VERTICAL]).toContain(actual.direction);
+      expect([Direction.HORIZONTAL, Direction.VERTICAL]).toContain(actual.direction);
     }
   });
 
@@ -38,7 +38,7 @@ describe('grid', () => {
       expect(actual.word).toBe(word);
       expect(actual.row).toBe(0);
       expect(actual.column).toBe(0);
-      expect(actual.direction).toBe(HORIZONTAL);
+      expect(actual.direction).toBe(Direction.HORIZONTAL);
     }
   });
 
@@ -54,13 +54,13 @@ describe('grid', () => {
     const grid = Array(4).fill(null).map(()=>Array(4).fill(null));
     const word = 'test';
 
-    const actual = findPosition(word, grid, VERTICAL);
+    const actual = findPosition(word, grid, Direction.VERTICAL);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
       expect(actual.row).toBeLessThanOrEqual(3);
       expect(actual.column).toBe(0);
-      expect(actual.direction).toBe(HORIZONTAL);
+      expect(actual.direction).toBe(Direction.HORIZONTAL);
     }
   });
 
@@ -76,7 +76,7 @@ describe('grid', () => {
       expect(actual.word).toBe(word);
       expect(actual.row).toBe(0);
       expect(actual.column).toBe(0);
-      expect(actual.direction).toBe(DIAGONAL);
+      expect(actual.direction).toBe(Direction.DIAGONAL);
     }
   });
 
@@ -92,7 +92,7 @@ describe('grid', () => {
       expect(actual.word).toBe(word);
       expect(actual.row).toBe(0);
       expect(actual.column).toBe(1);
-      expect(actual.direction).toBe(HORIZONTAL);
+      expect(actual.direction).toBe(Direction.HORIZONTAL);
       expect(actual.horizontalOrder).toBe(BACKWARDS);
     }
   });
@@ -109,7 +109,7 @@ describe('grid', () => {
       expect(actual.word).toBe(word);
       expect(actual.row).toBe(1);
       expect(actual.column).toBe(0);
-      expect(actual.direction).toBe(VERTICAL);
+      expect(actual.direction).toBe(Direction.VERTICAL);
       expect(actual.verticalOrder).toBe(BACKWARDS);
     }
   });
@@ -126,7 +126,7 @@ describe('grid', () => {
       expect(actual.word).toBe(word);
       expect(actual.row).toBe(0);
       expect(actual.column).toBe(1);
-      expect(actual.direction).toBe(DIAGONAL);
+      expect(actual.direction).toBe(Direction.DIAGONAL);
       expect(actual.horizontalOrder).toBe(BACKWARDS);
       expect(actual.verticalOrder).toBe(FORWARDS);
     }
@@ -144,7 +144,7 @@ describe('grid', () => {
       expect(actual.word).toBe(word);
       expect(actual.row).toBe(1);
       expect(actual.column).toBe(1);
-      expect(actual.direction).toBe(DIAGONAL);
+      expect(actual.direction).toBe(Direction.DIAGONAL);
       expect(actual.horizontalOrder).toBe(BACKWARDS);
       expect(actual.verticalOrder).toBe(BACKWARDS);
     }

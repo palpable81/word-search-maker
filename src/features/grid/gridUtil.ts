@@ -1,7 +1,12 @@
 //DIRECTIONS
-export const VERTICAL = 'V';
-export const HORIZONTAL = 'H';
-export const DIAGONAL = 'D';
+export enum Direction {
+  VERTICAL,
+  HORIZONTAL,
+  DIAGONAL
+}
+// export const VERTICAL = 'V';
+// export const HORIZONTAL = 'H';
+// export const DIAGONAL = 'D';
 
 //ORDER
 export const FORWARDS = 'F';
@@ -23,7 +28,7 @@ function shuffle(array: any) {
 
 function isWordAllowed(grid: any, word: any, row: any, column: any, direction: any, horizontalOrder: any, verticalOrder: any) {
   for(let i = 0; i < word.length; i++) {
-    if(direction === VERTICAL) {
+    if(direction === Direction.VERTICAL) {
       if(verticalOrder === FORWARDS) {
         if(grid[row+i][column] !== null && grid[row+i][column] !== word[i]) {
           return false;
@@ -35,7 +40,7 @@ function isWordAllowed(grid: any, word: any, row: any, column: any, direction: a
         }
       }
     }
-    else if(direction === HORIZONTAL) {
+    else if(direction === Direction.HORIZONTAL) {
       if(horizontalOrder === FORWARDS) {
         if(grid[row][column+i] !== null && grid[row][column+i] !== word[i]) {
           return false;
@@ -47,7 +52,7 @@ function isWordAllowed(grid: any, word: any, row: any, column: any, direction: a
         }
       }
     }
-    else if(direction === DIAGONAL) {
+    else if(direction === Direction.DIAGONAL) {
       if(horizontalOrder === FORWARDS && verticalOrder === FORWARDS) {
         if(grid[row+i][column+i] !== null && grid[row+i][column+i] !== word[i]) {
           return false;
@@ -75,9 +80,9 @@ function isWordAllowed(grid: any, word: any, row: any, column: any, direction: a
 }
 
 function getDirectionQueue(lastDirectionPlaced: any, diagonal=false) {
-  const queue = [HORIZONTAL, VERTICAL];
+  const queue = [Direction.HORIZONTAL, Direction.VERTICAL];
   if(diagonal) {
-    queue.push(DIAGONAL);
+    queue.push(Direction.DIAGONAL);
   }
   const shuffledQueue = shuffle(queue);
 
