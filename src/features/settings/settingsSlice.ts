@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface SettingsState {
   displayAnimation: boolean,
@@ -19,10 +19,10 @@ const settingsSlice = createSlice({
     toggleAnimation: (state) => {
       state.displayAnimation = !state.displayAnimation;
     },
-    setDiagonal: (state, action) => {
+    setDiagonal: (state, action: PayloadAction<boolean>) => {
       state.allowDiagonal = action.payload;
     },
-    setBackwards: (state, action) => {
+    setBackwards: (state, action: PayloadAction<boolean>) => {
       state.allowBackwards = action.payload;
     },
   }
