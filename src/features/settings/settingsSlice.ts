@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+export interface SettingsState {
+  displayAnimation: boolean,
+  allowDiagonal: boolean,
+  allowBackwards: boolean,
+}
+
+const initialState: SettingsState = {
   displayAnimation: true,
   allowDiagonal: false,
   allowBackwards: false,
