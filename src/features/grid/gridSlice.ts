@@ -26,38 +26,14 @@ const gridSlice = createSlice({
   reducers: {
     addWord: (state, action: PayloadAction<WordPosition>) => {
       const {word, row, column, direction, horizontalOrder, verticalOrder} = action.payload;
-      for(let i = 0; i < word.length; i++) {
-        if(direction === Direction.VERTICAL) {
-          if(verticalOrder === Order.FORWARDS) {
-            state.grid[row+i][column] = word[i];
-          }
-          else {
-            state.grid[row-i][column] = word[i];
-          }
-        }
-        else if(direction === Direction.HORIZONTAL){
-          if(horizontalOrder === Order.FORWARDS) {
-            state.grid[row][column+i] = word[i];
-          }
-          else {
-            state.grid[row][column-i] = word[i];
-          }
-        }
-        else {
-          if(verticalOrder === Order.FORWARDS && horizontalOrder === Order.FORWARDS) {
-            state.grid[row+i][column+i] = word[i];
-          }
-          else if(verticalOrder === Order.BACKWARDS && horizontalOrder === Order.FORWARDS) {
-            state.grid[row-i][column+i] = word[i];
-          }
-          else if(verticalOrder === Order.FORWARDS && horizontalOrder === Order.BACKWARDS) {
-            state.grid[row+i][column-i] = word[i];
-          }
-          else {
-            state.grid[row-i][column-i] = word[i];
-          }
-        }
+
+      for (let i = 0; i < word.length; i++) {
+        const currentRow = direction !== Direction.HORIZONTAL ? (verticalOrder === Order.FORWARDS ? row + i : row - i) : row;
+        const currentColumn = direction !== Direction.VERTICAL ? (horizontalOrder === Order.FORWARDS ? column + i : column - i) : column;
+      
+        state.grid[currentRow][currentColumn] = word[i];
       }
+      
       state.words = state.words.concat(word);
       state.lastDirectionPlaced = direction;
     },
