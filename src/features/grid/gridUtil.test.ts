@@ -1,12 +1,12 @@
 // import Grid from './grid.js';
-import { Direction, Order, findPosition } from './gridUtil';
+import { Direction, Order, Grid, findPosition } from './gridUtil';
 
 describe('grid', () => {
   test('find positions randomly when grid is empty', () => {
-    const grid = Array(4).fill(null).map(()=>Array(4).fill(null));
+    const grid: Grid = Array(4).fill(null).map(()=>Array(4).fill(null));
     const word = 'test';
 
-    const actual = findPosition(word, grid, null);
+    const actual = findPosition(word, grid);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -17,22 +17,22 @@ describe('grid', () => {
   });
 
   test(`can't find position if grid is full`, () => {
-    const grid = Array(2).fill(null).map(()=>Array(2).fill('q'));
+    const grid: Grid = Array(2).fill(null).map(()=>Array(2).fill('q'));
     const word = 'ab';
 
-    const actual = findPosition(word, grid, null);
+    const actual = findPosition(word, grid);
     expect(actual).toBeNull();
   });
 
   test(`finds position of only empty slot`, () => {
-    const grid = Array(4).fill(null).map(()=>Array(4).fill('q'));
+    const grid: Grid = Array(4).fill(null).map(()=>Array(4).fill('q'));
     grid[0][0] = null;
     grid[0][1] = null;
     grid[0][2] = null;
     grid[0][3] = null;
     const word = 'test';
 
-    const actual = findPosition(word, grid, null);
+    const actual = findPosition(word, grid);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -43,15 +43,15 @@ describe('grid', () => {
   });
 
   test(`doesn't find position for word that exceeds dimensions of grid`, () => {
-    const grid = Array(2).fill(null).map(()=>Array(2).fill(null));
+    const grid: Grid = Array(2).fill(null).map(()=>Array(2).fill(null));
     const word = 'test';
 
-    const actual = findPosition(word, grid, null);
+    const actual = findPosition(word, grid);
     expect(actual).toBeNull();
   });
 
   test(`finds position horizontally if last placed was vertical`, () => {
-    const grid = Array(4).fill(null).map(()=>Array(4).fill(null));
+    const grid: Grid = Array(4).fill(null).map(()=>Array(4).fill(null));
     const word = 'test';
 
     const actual = findPosition(word, grid, Direction.VERTICAL);
@@ -65,12 +65,12 @@ describe('grid', () => {
   });
 
   test(`finds position diagonally`, () => {
-    const grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
+    const grid: Grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
     grid[0][0] = 'a';
     grid[1][1] = 'b';
     const word = 'ab';
 
-    const actual = findPosition(word, grid, null, true);
+    const actual = findPosition(word, grid, undefined, true);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -81,12 +81,12 @@ describe('grid', () => {
   });
 
   test(`finds position backwards horizontally`, () => {
-    const grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
+    const grid: Grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
     grid[0][0] = 'b';
     grid[0][1] = 'a';
     const word = 'ab';
 
-    const actual = findPosition(word, grid, null, false, true);
+    const actual = findPosition(word, grid, undefined, false, true);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -98,12 +98,12 @@ describe('grid', () => {
   });
 
   test(`finds position backwards vertically`, () => {
-    const grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
+    const grid: Grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
     grid[0][0] = 'b';
     grid[1][0] = 'a';
     const word = 'ab';
 
-    const actual = findPosition(word, grid, null, false, true);
+    const actual = findPosition(word, grid, undefined, false, true);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -115,12 +115,12 @@ describe('grid', () => {
   });
 
   test(`finds position top-right to bottom-left diagonally`, () => {
-    const grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
+    const grid: Grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
     grid[1][0] = 'b';
     grid[0][1] = 'a';
     const word = 'ab';
 
-    const actual = findPosition(word, grid, null, true, true);
+    const actual = findPosition(word, grid, undefined, true, true);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -133,12 +133,12 @@ describe('grid', () => {
   });
 
   test(`finds position bottom-right to top-left diagonally`, () => {
-    const grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
+    const grid: Grid = Array(2).fill(null).map(()=>Array(2).fill('c'));
     grid[0][0] = 'b';
     grid[1][1] = 'a';
     const word = 'ab';
 
-    const actual = findPosition(word, grid, null, true, true);
+    const actual = findPosition(word, grid, undefined, true, true);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
