@@ -1,5 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+export type Word = {
+  word: string, 
+  triedToPlace: boolean, 
+  placedSuccessfully: boolean | null
+}
+
+export interface WordbankState {
+  wordbank: Word[];
+};
+
 const initialState = {
   wordbank: new Array(10).fill({
     word: '', 
