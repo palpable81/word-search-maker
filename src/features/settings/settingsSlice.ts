@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   displayAnimation: true,
-  diagonal: false,
-  backwards: false,
+  allowDiagonal: false,
+  allowBackwards: false,
 };
 
 const settingsSlice = createSlice({
@@ -14,10 +14,10 @@ const settingsSlice = createSlice({
       state.displayAnimation = !state.displayAnimation;
     },
     setDiagonal: (state, action) => {
-      state.diagonal = action.payload;
+      state.allowDiagonal = action.payload;
     },
     setBackwards: (state, action) => {
-      state.backwards = action.payload;
+      state.allowBackwards = action.payload;
     },
   }
 });
@@ -25,7 +25,7 @@ const settingsSlice = createSlice({
 export const { toggleAnimation, setDiagonal, setBackwards } = settingsSlice.actions;
 
 export const selectDisplayAnimation = (state: any) => state.settings.displayAnimation;
-export const selectDiagonal = (state: any) => state.settings.diagonal;
-export const selectBackwards = (state: any) => state.settings.backwards;
+export const selectAllowDiagonal = (state: any) => state.settings.allowDiagonal;
+export const selectAllowBackwards = (state: any) => state.settings.allowBackwards;
 
 export default settingsSlice.reducer;

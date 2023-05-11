@@ -2,12 +2,12 @@ import './sidebar.css';
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { toggleAnimation, setDiagonal, setBackwards, 
-         selectDisplayAnimation, selectDiagonal, selectBackwards } from '../../features/settings/settingsSlice';
+         selectDisplayAnimation, selectAllowDiagonal, selectAllowBackwards } from '../../features/settings/settingsSlice';
 
 export default function Sidebar() {
   const displayAnimation = useAppSelector(selectDisplayAnimation);
-  const diagonal = useAppSelector(selectDiagonal);
-  const backwards = useAppSelector(selectBackwards);
+  const allowDiagonal = useAppSelector(selectAllowDiagonal);
+  const allowBackwards = useAppSelector(selectAllowBackwards);
   const dispatch = useAppDispatch();
 
   const handleGenerationAnimationChange = () => {
@@ -62,13 +62,13 @@ export default function Sidebar() {
           Place Words Diagonally?
         </div>
         <div>
-          <input id="diagonalTrue" type="radio" className="radio" name="diagonal" value="true" checked={diagonal} onChange={handleDiagonalChange}/>
+          <input id="diagonalTrue" type="radio" className="radio" name="diagonal" value="true" checked={allowDiagonal} onChange={handleDiagonalChange}/>
         </div>
         <div className="label">
           <label htmlFor="diagonalTrue">Yes</label>
         </div>
         <div>
-          <input id="diagonalFalse" type="radio" className="radio" name="diagonal" value="false" checked={!diagonal} onChange={handleDiagonalChange}/>
+          <input id="diagonalFalse" type="radio" className="radio" name="diagonal" value="false" checked={!allowDiagonal} onChange={handleDiagonalChange}/>
         </div>
         <div className="label">
           <label htmlFor="diagonalFalse">No</label>
@@ -77,13 +77,13 @@ export default function Sidebar() {
           Place Words Backwards?
         </div>
         <div>
-          <input id="backwardsTrue" type="radio" className="radio" name="backwards" value="true" checked={backwards} onChange={handleBackwardsChange}/>
+          <input id="backwardsTrue" type="radio" className="radio" name="backwards" value="true" checked={allowBackwards} onChange={handleBackwardsChange}/>
         </div>
         <div className="label">
           <label htmlFor="backwardsTrue">Yes</label>
         </div>
         <div>
-          <input id="backwardsFalse" type="radio" className="radio" name="backwards" value="false" checked={!backwards} onChange={handleBackwardsChange}/>
+          <input id="backwardsFalse" type="radio" className="radio" name="backwards" value="false" checked={!allowBackwards} onChange={handleBackwardsChange}/>
         </div>
         <div className="label">
           <label htmlFor="backwardsFalse">No</label>

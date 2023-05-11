@@ -67,8 +67,8 @@ export const selectIsGenerating = (state: any) => state.grid.isGenerating;
 // Redux Thunk to place word
 export const placeWord = (word: any) =>  (dispatch: any, getState: any) => {
   const { grid, lastDirectionPlaced } = getState().grid;
-  const { diagonal, backwards } = getState().settings;
-  const position: WordPosition | null = findPosition(word, grid, lastDirectionPlaced, diagonal, backwards);
+  const { allowDiagonal, allowBackwards } = getState().settings;
+  const position: WordPosition | null = findPosition(word, grid, lastDirectionPlaced, allowDiagonal, allowBackwards);
 
   if(position) {
     dispatch(addWord(position));
