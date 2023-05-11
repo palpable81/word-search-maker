@@ -1,12 +1,12 @@
 // import Grid from './grid.js';
-import { Direction, Order, Grid, findPosition } from './gridUtil';
+import { Direction, Order, Grid, WordPosition, findPosition } from './gridUtil';
 
 describe('grid', () => {
   test('find positions randomly when grid is empty', () => {
     const grid: Grid = Array(4).fill(null).map(()=>Array(4).fill(null));
     const word = 'test';
 
-    const actual = findPosition(word, grid);
+    const actual: WordPosition | null = findPosition(word, grid);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -20,7 +20,7 @@ describe('grid', () => {
     const grid: Grid = Array(2).fill(null).map(()=>Array(2).fill('q'));
     const word = 'ab';
 
-    const actual = findPosition(word, grid);
+    const actual: WordPosition | null = findPosition(word, grid);
     expect(actual).toBeNull();
   });
 
@@ -32,7 +32,7 @@ describe('grid', () => {
     grid[0][3] = null;
     const word = 'test';
 
-    const actual = findPosition(word, grid);
+    const actual: WordPosition | null = findPosition(word, grid);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -46,7 +46,7 @@ describe('grid', () => {
     const grid: Grid = Array(2).fill(null).map(()=>Array(2).fill(null));
     const word = 'test';
 
-    const actual = findPosition(word, grid);
+    const actual: WordPosition | null = findPosition(word, grid);
     expect(actual).toBeNull();
   });
 
@@ -54,7 +54,7 @@ describe('grid', () => {
     const grid: Grid = Array(4).fill(null).map(()=>Array(4).fill(null));
     const word = 'test';
 
-    const actual = findPosition(word, grid, Direction.VERTICAL);
+    const actual: WordPosition | null = findPosition(word, grid, Direction.VERTICAL);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -70,7 +70,7 @@ describe('grid', () => {
     grid[1][1] = 'b';
     const word = 'ab';
 
-    const actual = findPosition(word, grid, undefined, true);
+    const actual: WordPosition | null = findPosition(word, grid, undefined, true);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -86,7 +86,7 @@ describe('grid', () => {
     grid[0][1] = 'a';
     const word = 'ab';
 
-    const actual = findPosition(word, grid, undefined, false, true);
+    const actual: WordPosition | null = findPosition(word, grid, undefined, false, true);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -103,7 +103,7 @@ describe('grid', () => {
     grid[1][0] = 'a';
     const word = 'ab';
 
-    const actual = findPosition(word, grid, undefined, false, true);
+    const actual: WordPosition | null = findPosition(word, grid, undefined, false, true);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -120,7 +120,7 @@ describe('grid', () => {
     grid[0][1] = 'a';
     const word = 'ab';
 
-    const actual = findPosition(word, grid, undefined, true, true);
+    const actual: WordPosition | null = findPosition(word, grid, undefined, true, true);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
@@ -138,7 +138,7 @@ describe('grid', () => {
     grid[1][1] = 'a';
     const word = 'ab';
 
-    const actual = findPosition(word, grid, undefined, true, true);
+    const actual: WordPosition | null = findPosition(word, grid, undefined, true, true);
     expect(actual).not.toBeNull();
     if(actual) {
       expect(actual.word).toBe(word);
