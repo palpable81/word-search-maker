@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Direction, Order, wordPosition, findPosition } from './gridUtil';
+import { Direction, Order, Grid, WordPosition, findPosition } from './gridUtil';
 
 export const ROWS = 10;
 export const COLS = 10;
 const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 export interface GridState {
-  grid: string[][],
+  grid: Grid,
   words: string[],
   lastDirectionPlaced?: Direction,
   finished: boolean,
@@ -24,7 +24,7 @@ const gridSlice = createSlice({
   name: 'grid',
   initialState: initialState,
   reducers: {
-    addWord: (state, action: PayloadAction<wordPosition>) => {
+    addWord: (state, action: PayloadAction<WordPosition>) => {
       const {word, row, column, direction, horizontalOrder, verticalOrder} = action.payload;
       for(let i = 0; i < word.length; i++) {
         if(direction === Direction.VERTICAL) {
@@ -92,7 +92,7 @@ export const selectIsGenerating = (state: any) => state.grid.isGenerating;
 export const placeWord = (word: any) =>  (dispatch: any, getState: any) => {
   const { grid, lastDirectionPlaced } = getState().grid;
   const { diagonal, backwards } = getState().settings;
-  const position: wordPosition | null = findPosition(word, grid, lastDirectionPlaced, diagonal, backwards);
+  const position: WordPosition | null = findPosition(word, grid, lastDirectionPlaced, diagonal, backwards);
 
   if(position) {
     dispatch(addWord(position));

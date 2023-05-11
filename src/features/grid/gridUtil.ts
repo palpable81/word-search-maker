@@ -9,7 +9,7 @@ export enum Order {
   BACKWARDS
 }
 
-export type wordPosition = {
+export type WordPosition = {
   word: string,
   row: number,
   column: number,
@@ -18,7 +18,9 @@ export type wordPosition = {
   verticalOrder: Order
 }
 
-function shuffle(array: any) {
+export type Grid = string[][];
+
+function shuffle(array: any[]) {
   let currentIndex = array.length,  randomIndex;
 
   while (currentIndex > 1) {
@@ -32,8 +34,9 @@ function shuffle(array: any) {
   return array;
 }
 
-function isWordAllowed(grid: any, word: any, row: any, column: any, direction: any, horizontalOrder: any, verticalOrder: any) {
-  const getCellValue = (r: any, c: any) => grid[r] && grid[r][c];
+function isWordAllowed(grid: Grid, position: WordPosition) {
+  const {word, row, column, direction, horizontalOrder, verticalOrder} = position;
+  const getCellValue = (r: number, c: number) => grid[r] && grid[r][c];
 
   for (let i = 0; i < word.length; i++) {
     const currentRow = direction !== Direction.HORIZONTAL ? row + (verticalOrder === Order.FORWARDS ? i : -i) : row;
@@ -49,7 +52,7 @@ function isWordAllowed(grid: any, word: any, row: any, column: any, direction: a
   return true;
 }
 
-function getDirectionQueue(lastDirectionPlaced: any, diagonal=false) {
+function getDirectionQueue(lastDirectionPlaced: Direction, diagonal: boolean=false) {
   const queue = [Direction.HORIZONTAL, Direction.VERTICAL];
   if(diagonal) {
     queue.push(Direction.DIAGONAL);
@@ -62,7 +65,7 @@ function getDirectionQueue(lastDirectionPlaced: any, diagonal=false) {
   return shuffledQueue;
 }
 
-function getOrderQueue(backwards=false) {
+function getOrderQueue(backwards: boolean=false) {
   const queue = [Order.FORWARDS];
   if(backwards) {
     queue.push(Order.BACKWARDS);
@@ -71,10 +74,11 @@ function getOrderQueue(backwards=false) {
   return shuffledQueue;
 }
 
-export function findPosition(word: any, grid: any, lastDirectionPlaced: any, diagonal=false, backwards=false): wordPosition | null {
+export function findPosition(word: string, grid: Grid, lastDirectionPlaced: Direction, 
+  allowDiagonal: boolean=false, allowBackwards: boolean=false): WordPosition | null {
   const rows = grid.length;
   const cols = grid[0].length;
-  const directionQueue = getDirectionQueue(lastDirectionPlaced, diagonal);
+  const directionQueue = getDirectionQueue(lastDirectionPlaced, allowDiagonal);
 
   if(word.length > rows && word.length > cols) {
     return null;
@@ -83,33 +87,34 @@ export function findPosition(word: any, grid: any, lastDirectionPlaced: any, dia
     const direction = directionQueue.shift();
     if(word.length <= rows && word.length <= cols) {
       // console.log('Direction Diagonal');
-      const verticalOrderQueue = getOrderQueue(backwards);
+      const verticalOrderQueue = getOrderQueue(allowBackwards);
       while(verticalOrderQueue.length > 0) {
         const verticalOrder = verticalOrderQueue.shift();
         let rowQueue = shuffle([...Array(rows - word.length + 1).keys()]);
         if(verticalOrder === Order.BACKWARDS) {
-          rowQueue = rowQueue.map((i: any) => i + word.length - 1);
+          rowQueue = rowQueue.map((i: number) => i + word.length - 1);
         }
         while(rowQueue.length > 0) {
           const row = rowQueue.shift();
-          const horizontalOrderQueue = getOrderQueue(backwards);
+          const horizontalOrderQueue = getOrderQueue(allowBackwards);
           while(horizontalOrderQueue.length > 0) {
             const horizontalOrder = horizontalOrderQueue.shift();
             let columnQueue = shuffle([...Array(cols - word.length + 1).keys()]);
             if(horizontalOrder === Order.BACKWARDS) {
-              columnQueue = columnQueue.map((i: any) => i + word.length - 1);
+              columnQueue = columnQueue.map((i: number) => i + word.length - 1);
             }
             while(columnQueue.length > 0) {
               const column = columnQueue.shift();
-              if(isWordAllowed(grid, word, row, column, direction, horizontalOrder, verticalOrder)) {
-                return {
-                  word: word,
-                  row: row,
-                  column: column,
-                  direction: direction,
-                  horizontalOrder: horizontalOrder,
-                  verticalOrder: verticalOrder
-                }
+              const position: WordPosition = {
+                word: word,
+                row: row,
+                column: column,
+                direction: direction,
+                horizontalOrder: horizontalOrder,
+                verticalOrder: verticalOrder
+              }
+              if(isWordAllowed(grid, position)) {
+                return position;
               }
             }
           }
