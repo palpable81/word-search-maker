@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type Word = {
   word: string, 
@@ -21,7 +21,7 @@ const wordbankSlice = createSlice({
   name: 'wordbank',
   initialState: initialState,
   reducers: {
-    setWord: (state, action) => {
+    setWord: (state, action: PayloadAction<{id: number, word: string}>) => {
       state.wordbank[action.payload.id].word = action.payload.word;
       state.wordbank[action.payload.id].triedToPlace = false;
       state.wordbank[action.payload.id].placedSuccessfully = null;
