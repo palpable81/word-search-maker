@@ -83,26 +83,34 @@ export function findPosition(word: string, grid: Grid, lastDirectionPlaced: Dire
   if(word.length > rows && word.length > cols) {
     return null;
   }
+
   while(directionQueue.length > 0) {
     const direction = directionQueue.shift();
+
     if(word.length <= rows && word.length <= cols) {
-      // console.log('Direction Diagonal');
+      
       const verticalOrderQueue = getOrderQueue(allowBackwards);
+
       while(verticalOrderQueue.length > 0) {
         const verticalOrder = verticalOrderQueue.shift();
         let rowQueue = shuffle([...Array(rows - word.length + 1).keys()]);
+
         if(verticalOrder === Order.BACKWARDS) {
           rowQueue = rowQueue.map((i: number) => i + word.length - 1);
         }
+
         while(rowQueue.length > 0) {
           const row = rowQueue.shift();
           const horizontalOrderQueue = getOrderQueue(allowBackwards);
+
           while(horizontalOrderQueue.length > 0) {
             const horizontalOrder = horizontalOrderQueue.shift();
             let columnQueue = shuffle([...Array(cols - word.length + 1).keys()]);
+
             if(horizontalOrder === Order.BACKWARDS) {
               columnQueue = columnQueue.map((i: number) => i + word.length - 1);
             }
+
             while(columnQueue.length > 0) {
               const column = columnQueue.shift();
               const position: WordPosition = {
@@ -113,6 +121,7 @@ export function findPosition(word: string, grid: Grid, lastDirectionPlaced: Dire
                 horizontalOrder: horizontalOrder,
                 verticalOrder: verticalOrder
               }
+              
               if(isWordAllowed(grid, position)) {
                 return position;
               }
