@@ -33,12 +33,12 @@ const gridSlice = createSlice({
       
         state.grid[currentRow][currentColumn] = word[i];
       }
-      
+
       state.words = state.words.concat(word);
       state.lastDirectionPlaced = direction;
     },
     fillRemainingSquares: (state) => {
-      const grid = state.grid;
+      const grid: Grid = state.grid;
       for(let row = 0; row < grid.length; row++) {
         for(let column = 0; column < grid[0].length; column++) {
           if(grid[row][column] === null) {
