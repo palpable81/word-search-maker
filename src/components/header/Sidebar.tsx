@@ -14,7 +14,7 @@ export default function Sidebar() {
     dispatch(toggleAnimation());
   }
 
-  const handleBackwardsChange = (e: any) => {
+  const handleBackwardsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newValue = false;
     if(e.target.value === "true") {
       newValue = true;
@@ -22,7 +22,7 @@ export default function Sidebar() {
     dispatch(setBackwards(newValue));
   }
   
-  const handleDiagonalChange = (e: any) => {
+  const handleDiagonalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newValue = false;
     if(e.target.value === "true") {
       newValue = true;
