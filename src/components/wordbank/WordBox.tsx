@@ -38,7 +38,7 @@ export default function WordBox(props: any) {
     }
   }
 
-  const handleChange = ({target}: any) => {
+  const handleChange = ({target}: React.ChangeEvent<HTMLInputElement>) => {
     const allowedChars = target.value.replace(/[^a-zA-Z ]/gi, '').toUpperCase().trimStart();
     let newWord = "";
     let strLengthWithoutSpaces = 0;
