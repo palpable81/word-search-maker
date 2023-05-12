@@ -1,8 +1,8 @@
-import { setWord } from '../../features/wordbank/wordbankSlice';
+import { Word, setWord } from '../../features/wordbank/wordbankSlice';
 import { ROWS } from '../../features/grid/gridSlice';
 import { useAppDispatch } from "../../app/hooks";
 
-export default function Word(props: any) {
+export default function WordBox(props: any) {
   const dispatch = useAppDispatch();
   const id = props.id;
   const word = props.wordEntry.word;
@@ -52,10 +52,13 @@ export default function Word(props: any) {
       }
     }
 
-    dispatch(setWord({
+    const word: Word = {
       id: id,
       word: newWord,
-    }));
+      triedToPlace: null,
+      placedSuccessfully: null
+    }
+    dispatch(setWord(word));
   }
 
   return (

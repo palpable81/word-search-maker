@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { setWordStatus, selectWordbank } from '../../features/wordbank/wordbankSlice';
+import { Word, setWordStatus, selectWordbank } from '../../features/wordbank/wordbankSlice';
 import { placeWord, fillRemainingSquares, clearGrid, setIsGenerating,
          selectFinished, selectIsGenerating } from '../../features/grid/gridSlice';
 import { selectDisplayAnimation } from '../../features/settings/settingsSlice';
