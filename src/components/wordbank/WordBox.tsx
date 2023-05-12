@@ -52,13 +52,13 @@ export default function WordBox(props: any) {
       }
     }
 
-    const word: Word = {
+    const wordInfo: Word = {
       id: id,
       word: newWord,
       triedToPlace: null,
       placedSuccessfully: null
     }
-    dispatch(setWord(word));
+    dispatch(setWord(wordInfo));
   }
 
   return (
