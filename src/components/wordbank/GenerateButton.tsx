@@ -15,14 +15,14 @@ export default function GenerateButton() {
   let fillDelay = displayAnimation ? 600 : 0;
 
   const handleOnClick = () => {
-    const enteredWords = wordbank.filter((wordEntry: any) => wordEntry.word);
+    const enteredWords = wordbank.filter((wordEntry: Word) => wordEntry.word);
 
     if(!isGenerating && enteredWords.length > 0) {
       window.scrollTo(0, document.body.scrollHeight);
       dispatch(setIsGenerating(true));
       dispatch(clearGrid());
 
-      const sortedWords = enteredWords.map((wordEntry: any, i: any) => {
+      const sortedWords = enteredWords.map((wordEntry: Word, i: number) => {
           return {
             id: i,
             word: wordEntry.word
@@ -32,7 +32,7 @@ export default function GenerateButton() {
         });
   
       // Returns a Promise that resolves after "ms" Milliseconds
-      const timer = (ms: any) => new Promise(res => setTimeout(res, ms))
+      const timer = (ms: number) => new Promise(res => setTimeout(res, ms))
   
       const fillGrid = async () => { // We need to wrap the loop into an async function for this to work
         for(let i=0; i < sortedWords.length; i++) {
