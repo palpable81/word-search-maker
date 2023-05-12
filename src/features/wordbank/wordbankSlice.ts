@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 
 export type Word = {
   id: number,
@@ -36,6 +37,6 @@ const wordbankSlice = createSlice({
 
 export const { setWord, setWordStatus } = wordbankSlice.actions;
 
-export const selectWordbank = (state: any) => state.wordbank.wordbank;
+export const selectWordbank = (state: RootState) => state.wordbank.wordbank;
 
 export default wordbankSlice.reducer;

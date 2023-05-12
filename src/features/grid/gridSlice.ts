@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../../app/store';
 import { Direction, Order, Grid, WordPosition, findPosition } from './gridUtil';
 
 export const ROWS = 10;
@@ -60,9 +61,9 @@ const gridSlice = createSlice({
 });
 
 export const { addWord, fillRemainingSquares, clearGrid, setIsGenerating } = gridSlice.actions;
-export const selectGrid = (state: any) => state.grid.grid;
-export const selectFinished = (state: any) => state.grid.finished;
-export const selectIsGenerating = (state: any) => state.grid.isGenerating;
+export const selectGrid = (state: RootState) => state.grid.grid;
+export const selectFinished = (state: RootState) => state.grid.finished;
+export const selectIsGenerating = (state: RootState) => state.grid.isGenerating;
 
 // Redux Thunk to place word
 export const placeWord = (word: any) =>  (dispatch: any, getState: any) => {
