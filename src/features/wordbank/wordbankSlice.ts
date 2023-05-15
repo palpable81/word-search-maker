@@ -16,7 +16,8 @@ const initialState = {
   wordbank: new Array(10).fill({
     word: '', 
     triedToPlace: false, 
-    placedSuccessfully: null}),
+    placedSuccessfully: null})
+  .map((entry, i) => ({...entry, id: i})),
 };
 
 const wordbankSlice = createSlice({
