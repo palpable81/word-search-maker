@@ -1,5 +1,10 @@
 import './grid.css';
 
+interface GridRowProps {
+  gridRow: (string | null)[],
+  key: number 
+}
+
 export default function GridRow(props: any) {
   const gridRow = props.gridRow;
 
