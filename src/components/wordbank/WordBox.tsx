@@ -2,9 +2,14 @@ import { Word, setWord } from '../../features/wordbank/wordbankSlice';
 import { ROWS } from '../../features/grid/gridSlice';
 import { useAppDispatch } from "../../app/hooks";
 
+interface WordBoxProps {
+  wordEntry: Word,
+  key: number
+}
+
 export default function WordBox(props: any) {
   const dispatch = useAppDispatch();
-  const word: Word = props.wordEntry;
+  const word = props.wordEntry;
 
   const handleKeyDown = (event: any) => {
     if (event.key === "ArrowDown") {
