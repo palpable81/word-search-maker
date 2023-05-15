@@ -97,7 +97,9 @@ export function findPosition(word: string, grid: Grid, lastDirectionPlaced: Dire
 
       while(verticalOrderQueue.length > 0) {
         const verticalOrder = verticalOrderQueue.shift();
-        let rowQueue = shuffle([...Array(rows - word.length + 1).keys()]);
+        let rowQueue = direction === Direction.VERTICAL ? 
+          shuffle([...Array(rows - word.length + 1).keys()]) : 
+          shuffle([...Array(rows).keys()]);
 
         if(verticalOrder === Order.BACKWARDS) {
           rowQueue = rowQueue.map((i: number) => i + word.length - 1);
@@ -109,7 +111,9 @@ export function findPosition(word: string, grid: Grid, lastDirectionPlaced: Dire
 
           while(horizontalOrderQueue.length > 0) {
             const horizontalOrder = horizontalOrderQueue.shift();
-            let columnQueue = shuffle([...Array(cols - word.length + 1).keys()]);
+            let columnQueue = direction === Direction.HORIZONTAL ?
+              shuffle([...Array(cols - word.length + 1).keys()]) : 
+              shuffle([...Array(cols).keys()]);
 
             if(horizontalOrder === Order.BACKWARDS) {
               columnQueue = columnQueue.map((i: number) => i + word.length - 1);
@@ -117,7 +121,6 @@ export function findPosition(word: string, grid: Grid, lastDirectionPlaced: Dire
 
             while(columnQueue.length > 0) {
               const column = columnQueue.shift();
-              console.log(`${row} ${column} ${direction} ${horizontalOrder} ${verticalOrder}`);
               if(typeof row === 'number' && typeof column === 'number' && 
                 typeof direction === 'number' && typeof horizontalOrder === 'number' && 
                 typeof verticalOrder === 'number') {
