@@ -22,14 +22,9 @@ export default function GenerateButton() {
       dispatch(setIsGenerating(true));
       dispatch(clearGrid());
 
-      const sortedWords = enteredWords.map((wordEntry: Word, i: number) => {
-          return {
-            id: i,
-            word: wordEntry.word
-          }
-        }).sort((a: any, b: any) => {
-          return b.word.length - a.word.length;
-        });
+      const sortedWords = enteredWords.sort((a: Word, b: Word) => {
+        return b.word.length - a.word.length;
+      });
   
       // Returns a Promise that resolves after "ms" Milliseconds
       const timer = (ms: number) => new Promise(res => setTimeout(res, ms))
