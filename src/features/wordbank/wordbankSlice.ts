@@ -28,7 +28,7 @@ const wordbankSlice = createSlice({
       state.wordbank[action.payload.id].triedToPlace = false;
       state.wordbank[action.payload.id].placedSuccessfully = null;
     },
-    setWordStatus: (state, action) => {
+    setWordStatus: (state, action: PayloadAction<Word>) => {
       state.wordbank[action.payload.id].triedToPlace = action.payload.triedToPlace;
       state.wordbank[action.payload.id].placedSuccessfully = action.payload.placedSuccessfully;
     }
