@@ -3,7 +3,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://papaya-crostata-1f5776.netlify.app/)
 
-Word Search Maker is an easy-to-use React app that will generate a printable word search using words you enter.
+Word Search Maker is an easy-to-use React/Typescript app that will generate a printable word search using words you enter.
 
 * Enter up to ten words of your choice
 * Quickly generate randomly-created word searches
@@ -13,6 +13,7 @@ Word Search Maker is an easy-to-use React app that will generate a printable wor
 ### Built With
 
 * [![React][React.js]][React-url]
+* [![Typescript][TS]][TS-url]
 
 ### Installation
 
@@ -36,3 +37,5 @@ Project Link: [https://github.com/palpable81/word-search-maker](https://github.c
 [product-screenshot]: images/screenshot.png
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
+[TS]: https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white
+[TS-url]: https://www.typescriptlang.org/
