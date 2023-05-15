@@ -7,7 +7,7 @@ interface WordBoxProps {
   key: number
 }
 
-export default function WordBox(props: any) {
+export default function WordBox(props: WordBoxProps) {
   const dispatch = useAppDispatch();
   const word = props.wordEntry;
 
