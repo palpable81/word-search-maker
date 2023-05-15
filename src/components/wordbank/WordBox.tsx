@@ -4,8 +4,7 @@ import { useAppDispatch } from "../../app/hooks";
 
 export default function WordBox(props: any) {
   const dispatch = useAppDispatch();
-  const id = props.id;
-  const word = props.wordEntry.word;
+  const word: Word = props.wordEntry;
 
   const handleKeyDown = (event: any) => {
     if (event.key === "ArrowDown") {
@@ -52,18 +51,17 @@ export default function WordBox(props: any) {
       }
     }
 
-    const wordInfo: Word = {
-      id: id,
+    dispatch(setWord({
+      id: word.id,
       word: newWord,
       triedToPlace: null,
       placedSuccessfully: null
-    }
-    dispatch(setWord(wordInfo));
+    }));
   }
 
   return (
     <div className='word'>
-      <input type="text" id={'word'+props.id} className={word ? 'word-input' : 'word-input empty'} value={word} placeholder="Enter Word..." onChange={handleChange} onKeyDown={handleKeyDown}/>
+      <input type="text" id={'word'+word.id} className={word.word ? 'word-input' : 'word-input empty'} value={word.word} placeholder="Enter Word..." onChange={handleChange} onKeyDown={handleKeyDown}/>
     </div>
   );
 }
