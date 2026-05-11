@@ -1,14 +1,24 @@
 import './sidebar.css';
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
-import { toggleAnimation, setDiagonal, setBackwards, 
-         selectDisplayAnimation, selectAllowDiagonal, selectAllowBackwards } from '../../features/settings/settingsSlice';
+import { toggleAnimation, setDiagonal, setBackwards, setGridSize,
+         selectDisplayAnimation, selectAllowDiagonal, selectAllowBackwards, selectGridSize } from '../../features/settings/settingsSlice';
+import { clearGrid } from '../../features/grid/gridSlice';
+import { truncateWords } from '../../features/wordbank/wordbankSlice';
 
 export default function Sidebar() {
   const displayAnimation = useAppSelector(selectDisplayAnimation);
   const allowDiagonal = useAppSelector(selectAllowDiagonal);
   const allowBackwards = useAppSelector(selectAllowBackwards);
+  const gridSize = useAppSelector(selectGridSize);
   const dispatch = useAppDispatch();
+
+  const handleGridSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const size = parseInt(e.target.value, 10);
+    dispatch(setGridSize(size));
+    dispatch(truncateWords(size));
+    dispatch(clearGrid(size));
+  }
 
   const handleGenerationAnimationChange = () => {
     dispatch(toggleAnimation());
@@ -32,14 +42,10 @@ export default function Sidebar() {
 
   useEffect(() => {
     const handleOutsideClick = (e: any) => {
-      if (e.target.id !== 'sidebar' && 
-          e.target.className !== 'sidebar_toggler' &&
-          e.target.className !== 'switch' &&
-          e.target.className !== 'radio') {
-        const sidebar = document.querySelector('#sidebar');
-        if(sidebar) {
-          sidebar.classList.remove('show');
-        }
+      if (e.target.className === 'sidebar_toggler') return;
+      const sidebar = document.querySelector('#sidebar');
+      if (sidebar && !sidebar.contains(e.target)) {
+        sidebar.classList.remove('show');
       }
     };
 
@@ -57,6 +63,16 @@ export default function Sidebar() {
         </div>
         <div className="label">
           <label htmlFor="displayAnimation">Display Animation When Generating Word Search</label>
+        </div>
+        <div className="heading">
+          Grid Size
+        </div>
+        <div style={{ gridColumn: '1 / span 2' }}>
+          <select value={gridSize} onChange={handleGridSizeChange} className="select">
+            {[8, 9, 10, 11, 12].map(n => (
+              <option key={n} value={n}>{n}×{n}</option>
+            ))}
+          </select>
         </div>
         <div className="heading">
           Place Words Diagonally?

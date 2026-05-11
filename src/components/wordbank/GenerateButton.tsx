@@ -2,13 +2,14 @@ import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { Word, setWordStatus, selectWordbank } from '../../features/wordbank/wordbankSlice';
 import { placeWord, fillRemainingSquares, clearGrid, setIsGenerating,
          selectFinished, selectIsGenerating } from '../../features/grid/gridSlice';
-import { selectDisplayAnimation } from '../../features/settings/settingsSlice';
+import { selectDisplayAnimation, selectGridSize } from '../../features/settings/settingsSlice';
 
 export default function GenerateButton() {
   const wordbank = useAppSelector(selectWordbank);
   const finished = useAppSelector(selectFinished);
   const isGenerating = useAppSelector(selectIsGenerating);
   const displayAnimation = useAppSelector(selectDisplayAnimation);
+  const gridSize = useAppSelector(selectGridSize);
   const dispatch = useAppDispatch();
 
   let wordDelay = displayAnimation ? 300 : 0;
@@ -20,7 +21,7 @@ export default function GenerateButton() {
     if(!isGenerating && enteredWords.length > 0) {
       window.scrollTo(0, document.body.scrollHeight);
       dispatch(setIsGenerating(true));
-      dispatch(clearGrid());
+      dispatch(clearGrid(gridSize));
 
       const sortedWords = enteredWords.sort((a: Word, b: Word) => {
         return b.word.length - a.word.length;

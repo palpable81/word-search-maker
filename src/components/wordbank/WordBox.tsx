@@ -1,6 +1,6 @@
 import { Word, setWord } from '../../features/wordbank/wordbankSlice';
-import { ROWS } from '../../features/grid/gridSlice';
-import { useAppDispatch } from "../../app/hooks";
+import { selectGridSize } from '../../features/settings/settingsSlice';
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 interface WordBoxProps {
   wordEntry: Word,
@@ -9,12 +9,13 @@ interface WordBoxProps {
 
 export default function WordBox(props: WordBoxProps) {
   const dispatch = useAppDispatch();
+  const gridSize = useAppSelector(selectGridSize);
   const word = props.wordEntry;
 
   const handleKeyDown = (event: any) => {
     if (event.key === "ArrowDown") {
-      const currId = ~~event.target.id[event.target.id.length - 1];
-      if(currId < 9) {
+      const currId = parseInt(event.target.id.replace('word', ''), 10);
+      if(currId < gridSize - 1) {
         const nextId = currId+1;
         const nextElement = document.getElementById('word'+nextId);
         if(nextElement) {
@@ -24,7 +25,7 @@ export default function WordBox(props: WordBoxProps) {
       }
     }
     else if (event.key === "ArrowUp") {
-      const currId = ~~event.target.id[event.target.id.length - 1];
+      const currId = parseInt(event.target.id.replace('word', ''), 10);
       if(currId > 0) {
         const prevId = currId-1;
         const prevElement = document.getElementById('word'+prevId);
@@ -51,7 +52,7 @@ export default function WordBox(props: WordBoxProps) {
       if(allowedChars[i] !== ' ') {
         strLengthWithoutSpaces++;
       }
-      if(strLengthWithoutSpaces >= ROWS) {
+      if(strLengthWithoutSpaces >= gridSize) {
         break;
       }
     }

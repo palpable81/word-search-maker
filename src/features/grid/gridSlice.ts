@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppDispatch } from '../../app/store';
 import { Direction, Order, Grid, WordPosition, findPosition } from './gridUtil';
 
-export const ROWS = 10;
-export const COLS = 10;
+const ROWS = 10;
+const COLS = 10;
 const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 export interface GridState {
@@ -49,8 +49,9 @@ const gridSlice = createSlice({
       }
       state.finished = true;
     },
-    clearGrid: (state) => {
-      state.grid = Array(ROWS).fill(null).map(()=>Array(COLS).fill(null));
+    clearGrid: (state, action: PayloadAction<number>) => {
+      const size = action.payload;
+      state.grid = Array(size).fill(null).map(()=>Array(size).fill(null));
       state.words = [];
       state.finished = false;
     },
